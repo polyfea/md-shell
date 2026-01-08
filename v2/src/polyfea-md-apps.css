@@ -1,0 +1,36 @@
+:host {
+  box-sizing: border-box ;
+  width: 100%;  
+  height: fit-content;
+  display: flex;
+  padding: 1rem;
+}
+
+.wrapper {
+  box-sizing: border-box ;
+  height: fit-content;
+  padding: 1rem;
+  width:100%;
+  margin: 0 auto;
+  justify-content: space-evenly;
+  display: flex; 
+  flex-flow: row wrap;
+  gap: 1rem;
+  align-content: start;
+  transition: all 0.3s ease-in-out;
+  opacity: 1;
+}
+
+.wrapper.begin-transition {
+  opacity: 0;
+}
+
+* {
+  box-sizing: border-box;
+  width: 12rem;
+  height: 12rem;
+}
+
+polyfea-context {
+  display: contents;
+}

@@ -1,0 +1,78 @@
+{
+  "contextAreas": [
+    {
+      "name": "applications",
+      "contextArea": {
+        "elements": [
+          {
+            "tagName": "polyfea-md-app",
+            "attributes": {
+              "headline": "Dashboard",
+              "supporting-text": "View your key metrics and reports.",
+              "href": "#1006",
+              "material-icon": "dashboard",
+              "tile-img-src": "https://picsum.photos/300/200?random=1"
+            },            
+            "priority": 10
+          },
+            {
+                "tagName": "polyfea-md-app",
+                "attributes": {
+                "headline": "Reports",
+                "supporting-text": "Generate and view detailed reports.",
+                "href": "#1007",
+                "material-icon": "bar_chart",
+                "tile-img-src": "https://picsum.photos/300/200?random=2"
+                },            
+                "priority": 20
+            },
+            {
+                "tagName": "polyfea-md-app",
+                "attributes": {
+                "headline": "Settings",
+                "supporting-text": "Manage your application settings.",
+                "href": "#1008",
+                "material-icon": "settings",
+                "tile-img-src": "https://picsum.photos/300/200?random=3"
+                },            
+                "priority": 30
+            },
+            {
+                "tagName": "polyfea-md-app",
+                "attributes": {
+                "headline": "User Management",
+                "supporting-text": "Add, remove, and manage users.",
+                "href": "#1009",
+                "material-icon": "people",
+                "tile-img-src": "https://picsum.photos/300/200?random=4"
+                },            
+                "priority": 40
+            },
+            {
+                "tagName": "polyfea-md-app",
+                "attributes": {
+                "headline": "Notifications",
+                "supporting-text": "View and manage your notifications.",
+                "href": "#1010",
+                "material-icon": "notifications",
+                "tile-img-src": "https://picsum.photos/300/200?random=5"
+                },            
+                "priority": 50
+            },
+            {
+                "tagName": "polyfea-md-app",
+                "attributes": {
+                "headline": "Help Center",
+                "supporting-text": "Access help articles and support.",
+                "href": "#1011",
+                "material-icon": "help_outline",
+                "tile-img-src": "https://picsum.photos/300/200?random=6"
+                },            
+                "priority": 60
+            }
+        ]
+      }
+    }
+  ],
+  "microfrontends": {}
+}

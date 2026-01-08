@@ -1,0 +1,355 @@
+{
+  "schemaVersion": "1.0.0",
+  "readme": "",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-app.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An application tile or icon that may be used in a launcher page or navigation area.",
+          "name": "PolyfeaMdApp",
+          "cssProperties": [
+            {
+              "description": "Specifies the height of the tile card. Default value is `14rem`.",
+              "name": "--app-card-height"
+            },
+            {
+              "description": "Specifies the width of the tile card. Default value is `16rem`.",
+              "name": "--app-card-width"
+            },
+            {
+              "description": "Specifies the height of the tile image. Default value is `9rem`.",
+              "name": "--app-card-tile-img-height"
+            },
+            {
+              "description": "Specifies the background color of the tile image. Default value is `var(--md-sys-color-secondary-container, olive)`.",
+              "name": "--app-card-tile-img-background-color"
+            },
+            {
+              "description": "Specifies the `object-fit` style for the tile image. Default value is `cover`.",
+              "name": "--app-card-tile-img-fit"
+            }
+          ],
+          "slots": [
+            {
+              "description": "icon to replace the icon shown in navigation, rail, and drawer variants. Takes priority over `icon-src` and `material-icon` properties.",
+              "name": "icon"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The main title of the application.",
+              "attribute": "headline"
+            },
+            {
+              "kind": "field",
+              "name": "shortHeadline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "A shorter version of the headline, used in drawer, rail, or navigation variant rendering.",
+              "attribute": "short-headline"
+            },
+            {
+              "kind": "field",
+              "name": "supportingText",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Additional text to display in the tile variant rendering.",
+              "attribute": "supporting-text"
+            },
+            {
+              "kind": "field",
+              "name": "tileImgSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The URL of the image to display in the tile variant rendering.",
+              "attribute": "tile-img-src"
+            },
+            {
+              "kind": "field",
+              "name": "iconSrc",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The URL of the image to display in the drawer, rail, or navigation variant rendering.",
+              "attribute": "icon-src"
+            },
+            {
+              "kind": "field",
+              "name": "materialIcon",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the name of the Material Symbol icon to be used.\nIt's only utilized if the `icon-src` property is not set.\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
+              "attribute": "material-icon"
+            },
+            {
+              "kind": "field",
+              "name": "tileImgDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
+              "attribute": "tile-img-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) and [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "attribute": "href"
+            },
+            {
+              "kind": "field",
+              "name": "isActivePrefix",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "This property specifies whether the element is actived on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path.",
+              "attribute": "is-active-prefix"
+            },
+            {
+              "kind": "field",
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the context in which the element is rendered.\nIt's typically set by the `polyfea-context` element.\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
+              "attribute": "context",
+              "reflects": true
+            },
+            {
+              "kind": "field",
+              "name": "mode",
+              "type": {
+                "text": "'tile' | 'drawer' | 'rail' | 'navigation' | null"
+              },
+              "default": "null",
+              "description": "The mode in which the app anchor is rendered. If not specified then\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\nwill be navigation mode). In all other cases, the default mode is `tile`.",
+              "attribute": "mode"
+            },
+            {
+              "kind": "field",
+              "name": "isActive",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The main title of the application.",
+              "fieldName": "headline"
+            },
+            {
+              "name": "short-headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "A shorter version of the headline, used in drawer, rail, or navigation variant rendering.",
+              "fieldName": "shortHeadline"
+            },
+            {
+              "name": "supporting-text",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "Additional text to display in the tile variant rendering.",
+              "fieldName": "supportingText"
+            },
+            {
+              "name": "tile-img-src",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The URL of the image to display in the tile variant rendering.",
+              "fieldName": "tileImgSrc"
+            },
+            {
+              "name": "icon-src",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The URL of the image to display in the drawer, rail, or navigation variant rendering.",
+              "fieldName": "iconSrc"
+            },
+            {
+              "name": "material-icon",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the name of the Material Symbol icon to be used.\nIt's only utilized if the `icon-src` property is not set.\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
+              "fieldName": "materialIcon"
+            },
+            {
+              "name": "tile-img-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
+              "fieldName": "tileImgDisabled"
+            },
+            {
+              "name": "href",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) and [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "fieldName": "href"
+            },
+            {
+              "name": "is-active-prefix",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "This property specifies whether the element is actived on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path.",
+              "fieldName": "isActivePrefix"
+            },
+            {
+              "name": "context",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "This property specifies the context in which the element is rendered.\nIt's typically set by the `polyfea-context` element.\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
+              "fieldName": "context"
+            },
+            {
+              "name": "mode",
+              "type": {
+                "text": "'tile' | 'drawer' | 'rail' | 'navigation' | null"
+              },
+              "default": "null",
+              "description": "The mode in which the app anchor is rendered. If not specified then\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\nwill be navigation mode). In all other cases, the default mode is `tile`.",
+              "fieldName": "mode"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-app",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdApp",
+          "declaration": {
+            "name": "PolyfeaMdApp",
+            "module": "src/polyfea-md-app.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-app",
+          "declaration": {
+            "name": "PolyfeaMdApp",
+            "module": "src/polyfea-md-app.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-apps.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "List of application tiles. This component may be used a  launcher page for additinal applications.",
+          "name": "PolyfeaMdApps",
+          "slots": [
+            {
+              "description": "This slot is for the content of the element, typically application tiles. You can use [polyfea-md-app](../polyfea-md-app/readme.md) or any other component. If a context area is specified and available, the slot content is not rendered. Instead, elements provided by the context are displayed.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "applicationsContext",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"applications\"",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md) \nelement that will be used to render the applications web components.",
+              "attribute": "applications-context"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "applications-context",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"applications\"",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md) \nelement that will be used to render the applications web components.",
+              "fieldName": "applicationsContext"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-apps",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdApps",
+          "declaration": {
+            "name": "PolyfeaMdApps",
+            "module": "src/polyfea-md-apps.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-apps",
+          "declaration": {
+            "name": "PolyfeaMdApps",
+            "module": "src/polyfea-md-apps.ts"
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,175 @@
+import { LitElement, html, unsafeCSS } from 'lit';
+import { customElement, property, state } from 'lit/decorators.js';
+
+import '@material/web/elevation/elevation.js';
+import '@material/web/ripple/ripple.js';
+import '@material/web/icon/icon.js';
+
+import styles from './polyfea-md-app.css?inline';
+
+/**
+ * An application tile or icon that may be used in a launcher page or navigation area.
+ *
+ * @slot icon - icon to replace the icon shown in navigation, rail, and drawer variants. Takes priority over `icon-src` and `material-icon` properties.
+ * 
+ * @cssprop --app-card-height - Specifies the height of the tile card. Default value is `14rem`.
+ * @cssprop --app-card-width - Specifies the width of the tile card. Default value is `16rem`.
+ * @cssprop --app-card-tile-img-height - Specifies the height of the tile image. Default value is `9rem`.
+ * @cssprop --app-card-tile-img-background-color - Specifies the background color of the tile image. Default value is `var(--md-sys-color-secondary-container, olive)`.
+ * @cssprop --app-card-tile-img-fit - Specifies the `object-fit` style for the tile image. Default value is `cover`.
+ */
+@customElement('polyfea-md-app')
+export class PolyfeaMdApp extends LitElement {
+  static styles = unsafeCSS(styles);
+
+  /** The main title of the application. */
+  @property({attribute: 'headline'}) headline: string = '';
+
+  /** A shorter version of the headline, used in drawer, rail, or navigation variant rendering. */
+  @property({attribute: 'short-headline'}) shortHeadline: string = '';
+
+  /** Additional text to display in the tile variant rendering. */
+  @property({attribute: 'supporting-text'}) supportingText: string = '';
+
+  /** The URL of the image to display in the tile variant rendering. */
+  @property({attribute: 'tile-img-src'}) tileImgSrc: string = '';
+
+  /** The URL of the image to display in the drawer, rail, or navigation variant rendering. */
+  @property({attribute: 'icon-src'}) iconSrc: string = '';
+
+  /**
+   * This property specifies the name of the Material Symbol icon to be used.
+   * It's only utilized if the `icon-src` property is not set.
+   * For more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).
+   */
+  @property({attribute: 'material-icon'}) materialIcon: string = '';
+
+  /**
+   * This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.
+   * When the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.
+   */
+  @property({attribute: 'tile-img-disabled'}) tileImgDisabled: boolean = false;
+
+  /**
+   * This property specifies the URL to navigate to when the element is clicked.
+   * The click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.
+   * For more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) 
+   * and [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.
+   */
+  @property({attribute: 'href'}) href: string = '';
+
+  /**
+   * This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active
+   * when the href matches the current path. If set then active indicator is  considered only by  pathname and hash components 
+   * of the `href`attribute and it is set to true if this is a prefix of the current path+hash.
+   */
+  @property({attribute: 'is-active-prefix', type: Boolean}) isActivePrefix: boolean = false;
+
+  /**
+   * This property specifies the context in which the element is rendered.
+   * It's typically set by the `polyfea-context` element.
+   * For more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).
+   */
+  @property({
+    reflect: true,
+    attribute: 'context',
+  })
+  context: string = '';
+
+  /** The mode in which the app anchor is rendered. If not specified then
+   * the mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`
+   * will be navigation mode). In all other cases, the default mode is `tile`.
+   */
+  @property({ type: String })
+  mode: 'tile' | 'drawer' | 'rail' | 'navigation' | null = null;
+
+  @state() isActive: boolean = false;
+
+  connectedCallback() {
+    super.connectedCallback();
+    if ((globalThis as any).navigation?.addEventListener) {
+      (globalThis as any).navigation?.addEventListener('navigatesuccess', this.#onNavigateSuccess.bind(this));
+    }
+    this.#onNavigateSuccess();
+  }
+  disconnectedCallback() {
+    if ((globalThis as any).navigation?.removeEventListener) {
+      (globalThis as any).navigation?.removeEventListener('navigatesuccess', this.#onNavigateSuccess.bind(this));
+    }
+    super.disconnectedCallback();
+  }
+
+  #onNavigateSuccess() {
+    const url = new URL(this.href, new URL(document.baseURI, document.location.href || 'http://localhost'));
+    
+    if (this.isActivePrefix) {
+      const expectedPrefix = url.pathname + url.hash;
+      const actualPrefix = window.location.pathname + window.location.hash;
+      this.isActive = actualPrefix.startsWith(expectedPrefix);
+    } else {
+      this.isActive = window.location.href === url.href;
+    }
+  }
+
+  render() {
+    let mode = this.mode;
+    if (!mode && this.context) {
+      const m = this.context.split('-')[0];
+      if (m === 'drawer' || m === 'rail' || m === 'navigation') {
+        mode = m;
+      }
+    }
+    if (!mode || mode === 'tile') {
+      return this.#renderTile();
+    } else {
+      return this.#renderIcon(mode);
+    }
+  }
+
+  #renderTile() {
+    return html` <a class="card-wrapper" href=${this.href} @click=${(e: Event) => this.#navigate(e)}>
+      <md-elevation></md-elevation>
+      <md-ripple></md-ripple>
+      ${this.tileImgDisabled
+        ? ''
+        : html`
+            <div class="tile-picture">
+              <img src=${this.tileImgSrc} alt="" />
+            </div>
+          `}
+      <div class="content">
+        <div class="headline">${this.headline}</div>
+        <div class="supporting-text">${this.supportingText}</div>
+      </div>
+    </a>`;
+  }
+
+  #renderIcon(mod: string) {
+    return html`
+      <a class=${mod+"-button"} href=${this.href} @click=${(e: Event) => this.#navigate(e)}>
+        <div class=${'icon' + (this.isActive ? ' active' : '')}>
+          <md-ripple></md-ripple>
+          <slot name="icon"> ${this.iconSrc ? html`<img src=${this.iconSrc} alt="" />` : this.materialIcon ? html`<md-icon>${this.materialIcon}</md-icon>` : undefined} </slot>
+        </div>
+        <div class="headline">${this.shortHeadline || this.headline || ''}</div>
+      </a>
+    `;
+  }
+
+  #navigate(e: Event) {
+    e.preventDefault();
+    setTimeout(() => {
+      if ((globalThis as any).navigation) {
+        (globalThis as any).navigation.navigate(this.href);
+      } else {
+        window.history.pushState({}, '', this.href);
+      }
+    }, 300);
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'polyfea-md-app': PolyfeaMdApp;
+  }
+}

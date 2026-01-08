@@ -1,0 +1,43 @@
+{
+  "name": "@polyfea/md-shell",
+  "version": "0.0.1",
+  "description": "Polyfea Material Shell Web Component",
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/polyfea/md-shell/blob/main/README.md",
+  "author": "Polyfea contributors",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "cem": "cem analyze",
+    "cem-doc": "node ./.scripts/cem-md.js"
+  },
+  "dependencies": {
+    "@material/web": "^2.4.1",
+    "lit": "^3.3.2"
+  },
+  "devDependencies": {
+    "@polyfea/core": "file:../../core",
+    "@chromatic-com/storybook": "^4.1.3",
+    "@custom-elements-manifest/analyzer": "^0.11.0",
+    "@custom-elements-manifest/to-markdown": "^0.1.0",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@storybook/addon-vitest": "^10.1.11",
+    "@storybook/web-components-vite": "^10.1.11",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-istanbul": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.16",
+    "playwright": "^1.57.0",
+    "shadow-dom-testing-library": "^1.13.1",
+    "storybook": "^10.1.11",
+    "typescript": "~5.9.3",
+    "vite": "^7.3.1",
+    "vite-plugin-dts": "^4.5.4",
+    "vitest": "^4.0.16"
+  },
+  "customElements": "custom-elements.json"
+}
