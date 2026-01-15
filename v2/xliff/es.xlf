@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file target-language="es" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+    <body>
+<trans-unit id="polyfea.change-language-label">
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <target>Cambiar idioma, actualmente <x id="0" equiv-text="${langName}"/></target>
+</trans-unit>
+<trans-unit id="polyfea.switch-to-light-theme">
+  <source>Switch to Light mode</source>
+  <target>Cambiar a modo claro</target>
+</trans-unit>
+<trans-unit id="polyfea.switch-to-dark-theme">
+  <source>Switch to Dark mode</source>
+  <target>Cambiar a modo oscuro</target>
+</trans-unit>
+<trans-unit id="polyfea.increase-text-size">
+  <source>Increase text size</source>
+  <target>Aumentar tamaño del texto</target>
+</trans-unit>
+<trans-unit id="polyfea.decrease-text-size">
+  <source>Decrease text size</source>
+  <target>Disminuir tamaño del texto</target>
+</trans-unit>
+<trans-unit id="polyfea.reset-text-size">
+  <source>Reset text size</source>
+  <target>Restablecer tamaño del texto</target>
+</trans-unit>
+<trans-unit id="polyfea.navigate-back">
+  <source>back</source>
+  <target>atrás</target>
+</trans-unit>
+<trans-unit id="polyfea.open-drawer">
+  <source>open drawer</source>
+  <target>abrir panel lateral</target>
+</trans-unit>
+<trans-unit id="polyfea.more-actions">
+  <source>more actions</source>
+  <target>más acciones</target>
+</trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,11 +1,21 @@
 import { LitElement, html, unsafeCSS } from 'lit';
 import { customElement, property, state } from 'lit/decorators.js';
 
-import '@material/web/elevation/elevation.js';
-import '@material/web/ripple/ripple.js';
-import '@material/web/icon/icon.js';
-
 import styles from './polyfea-md-app.css?inline';
+import { loc } from './localization';
+import { updateWhenLocaleChanges } from '@lit/localize';
+
+
+
+if (!globalThis.customElements.get('md-elevation')) {
+  import('@material/web/elevation/elevation.js');
+}
+if (!globalThis.customElements.get('md-ripple')) {
+  import('@material/web/ripple/ripple.js');
+}
+if (!globalThis.customElements.get('md-icon')) {
+  import('@material/web/icon/icon.js');
+}
 
 /**
  * An application tile or icon that may be used in a launcher page or navigation area.
@@ -25,11 +35,20 @@ export class PolyfeaMdApp extends LitElement {
   /** The main title of the application. */
   @property({attribute: 'headline'}) headline: string = '';
 
-  /** A shorter version of the headline, used in drawer, rail, or navigation variant rendering. */
+  /** The main title of the application. */
+  @property({attribute: 'headline-localize-id'}) headlineLocalizeId: string = '';
+
+  /** A shorter title of the application to display in icon variants.  */
   @property({attribute: 'short-headline'}) shortHeadline: string = '';
+
+  /** Localize ID for translation instead of computed hash */
+  @property({attribute: 'short-headline-localize-id'}) shortHeadlineLocalizeId: string = '';
 
   /** Additional text to display in the tile variant rendering. */
   @property({attribute: 'supporting-text'}) supportingText: string = '';
+
+  /** Localize ID for translation instead of computed hash */
+  @property({attribute: 'supporting-text-localize-id'}) supportingTextLocalizeId: string = '';
 
   /** The URL of the image to display in the tile variant rendering. */
   @property({attribute: 'tile-img-src'}) tileImgSrc: string = '';
@@ -85,6 +104,11 @@ export class PolyfeaMdApp extends LitElement {
 
   @state() isActive: boolean = false;
 
+  constructor() {
+    super();
+    updateWhenLocaleChanges(this);
+  }
+
   connectedCallback() {
     super.connectedCallback();
     if ((globalThis as any).navigation?.addEventListener) {
@@ -120,8 +144,10 @@ export class PolyfeaMdApp extends LitElement {
       }
     }
     if (!mode || mode === 'tile') {
+      this.setAttribute('class', 'tile');
       return this.#renderTile();
     } else {
+      this.setAttribute('class', mode || 'icon');
       return this.#renderIcon(mode);
     }
   }
@@ -138,8 +164,8 @@ export class PolyfeaMdApp extends LitElement {
             </div>
           `}
       <div class="content">
-        <div class="headline">${this.headline}</div>
-        <div class="supporting-text">${this.supportingText}</div>
+        <div class="headline">${loc(this.headline, this.headlineLocalizeId)}</div>
+        <div class="supporting-text">${loc(this.supportingText, this.supportingTextLocalizeId)}</div>
       </div>
     </a>`;
   }
@@ -151,7 +177,7 @@ export class PolyfeaMdApp extends LitElement {
           <md-ripple></md-ripple>
           <slot name="icon"> ${this.iconSrc ? html`<img src=${this.iconSrc} alt="" />` : this.materialIcon ? html`<md-icon>${this.materialIcon}</md-icon>` : undefined} </slot>
         </div>
-        <div class="headline">${this.shortHeadline || this.headline || ''}</div>
+        <div class="headline">${loc((this.shortHeadline || this.headline || '') as any, this.shortHeadlineLocalizeId)}</div>
       </a>
     `;
   }

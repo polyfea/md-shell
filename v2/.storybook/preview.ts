@@ -3,6 +3,8 @@ import { within as withinShadow } from "shadow-dom-testing-library";
 import { setCustomElementsManifest } from "@storybook/web-components";
 import customElements from "../custom-elements.json";
 import  {PolyfeaContext} from "@polyfea/core";
+import "./fonts.css";
+import "../src/localization";
 
 PolyfeaContext.define();
 setCustomElementsManifest(customElements);

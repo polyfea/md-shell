@@ -1,0 +1,101 @@
+/**
+* @prop --rail-width: Sets the width of the navigation rail. Default is 5rem.
+* @prop --drawer-width: Sets the width of the navigation drawer. Default is 22.5rem.
+**/
+:host {
+  --_footer-height: var(--footer-height, 1.2rem);
+  --_drawer-width: var(--drawer-width, 22.5rem );
+  --_rail-width: var(--rail-width, 5rem );
+  --_navigation-height: var(--navigation-height, 5rem );
+
+}
+
+:host {
+  display: block;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  box-sizing: border-box;
+  font: var(--md-sys-typescale-body-medium, 400 1rem / 1.5rem 'Roboto Flex', Roboto, sans-serif);
+  letter-spacing: var(--md-sys-typescale-body-medium-letter-spacing, 0.03125rem);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+topbar {
+  grid-area: topbar;
+  display: block;
+  grid-template-columns: 4rem 1fr auto;
+  padding-left: 12px;  
+  color: var(--md-sys-color-on-surface);
+  background-color: var(--md-sys-color-surface);
+  transition: ease-in-out 0.3s;
+  box-sizing: border-box;
+}
+
+topbar.scrolled {
+  background-color: var(--md-sys-color-surface-container);
+}
+
+topbar h1 {
+  font: var(--md-sys-typescale-title-large,  800 1.375rem / 1.75rem 'Roboto');
+  letter-spacing: var(--md-sys-typescale-title-large-font-letter-spacing, 0px);
+  
+  text-align: center;
+  margin: 0 auto;
+  padding: 8px;
+}
+
+.topbar-menu {
+  display: contents;
+}
+
+page {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  font-family: var(--md-ref-typeface-plain, sans-serif);
+}
+
+main {
+  background-color: var(--md-sys-color-background);
+  color: var(--md-sys-color-on-background);
+  border-top-left-radius: 16px; 
+  border-top-right-radius: 0; /* Len ak je topbar nad tým */
+  
+  width: 100%;
+  height: 100%;
+  margin-right: 16px;
+  overflow: auto;
+  box-sizing: border-box;
+  position: relative;
+}
+
+rail, navigation {
+  background-color: var(--md-sys-color-surface-container);
+  color: var(--md-sys-color-on-surface-variant);
+  transition: width 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
+  z-index: 2;
+}
+
+drawer {
+  background-color: var(--md-sys-color-surface-container-low);
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  transition: width 0.3s cubic-bezier(0.2, 0.0, 0, 1.0);
+  z-index: 2;
+}
+
+::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
+  background-color: var(--highlight-10, rgba(0, 0, 0, 0.1));
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--highlight-20, rgba(0, 0, 0, 0.2));
+  border-radius: 2px;
+}
+
+polyfea-context {
+  display: contents;
+}

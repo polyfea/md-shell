@@ -8,6 +8,7 @@
             "tagName": "polyfea-md-app",
             "attributes": {
               "headline": "Dashboard",
+              "headline-localize-id": "dashboard-title",
               "supporting-text": "View your key metrics and reports.",
               "href": "#1006",
               "material-icon": "dashboard",
@@ -41,6 +42,7 @@
                 "tagName": "polyfea-md-app",
                 "attributes": {
                 "headline": "User Management",
+                "headline-localize-id": "user-management-title",
                 "supporting-text": "Add, remove, and manage users.",
                 "href": "#1009",
                 "material-icon": "people",
@@ -71,6 +73,18 @@
                 "priority": 60
             }
         ]
+      }
+    },
+    {
+      "name": "main-content",
+      "contextArea": {
+        "elements": [
+          {
+            "tagName": "polyfea-md-apps",
+            "attributes": {},
+            "priority": 10
+          }
+        ]  
       }
     }
   ],

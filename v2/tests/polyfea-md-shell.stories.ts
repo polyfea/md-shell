@@ -1,0 +1,519 @@
+import type { Meta, StoryObj } from '@storybook/web-components-vite';
+import { html, nothing } from 'lit';
+import { within, within as withinShadow } from 'shadow-dom-testing-library';
+import { expect, fireEvent, waitFor } from 'storybook/test';
+
+import '../src/polyfea-md-shell';
+import { PolyfeaMdShell } from '../src/polyfea-md-shell';
+import '../src/polyfea-md-app';
+import '../src/polyfea-md-apps';
+import '../src/polyfea-md-drawer';
+import '../src/polyfea-md-rail';
+import '../src/polyfea-md-navigation-bar';
+import '../src/polyfea-md-theme-control';
+import '../src/polyfea-md-topbar';
+import '../src/polyfea-md-locale-menu';
+import { styleMap } from 'lit-html/directives/style-map.js';
+import { deepQuerySelector, deepQuerySelectorAll } from './deep-query-selector';
+import { type Theme } from '../src/polyfea-md-theme-control';
+
+// Define a type for your component props
+interface PolyfeaMdShellProps {
+  applicationHeadline: string;
+  topbarMoreDisabled: boolean;
+  drawerDisabled: boolean;
+  drawerCloseDisabled: boolean;
+  railDisabled: boolean;
+  navigationDisabled: boolean;
+  themeMenu: boolean;
+  localeMenu: boolean;
+  topbarVariant: 'centered' | 'small' | 'medium' | 'large';
+  vwWidth?: number;
+  smallMedia?: number;
+  mediumMedia?: number;
+  locales?: string[];
+  localesPath?: string;
+  primaryColor?: string;
+  secondaryColor?: string;
+}
+
+const meta: Meta<PolyfeaMdShellProps> = {
+  title: 'Custom Elements/polyfea-md-shell',
+  component: 'polyfea-md-shell',
+  tags: ['autodocs'],
+  argTypes: {
+    topbarVariant: {
+      control: { type: 'select' },
+      options: ['centered', 'small', 'medium', 'large'],
+    },
+    topbarMoreDisabled: { control: 'boolean' },
+    drawerDisabled: { control: 'boolean' },
+    drawerCloseDisabled: { control: 'boolean' },
+    railDisabled: { control: 'boolean' },
+    navigationDisabled: { control: 'boolean' },
+    themeMenu: { control: 'boolean' },
+    localeMenu: { control: 'boolean' },
+    vwWidth: {
+      control: 'number',
+      table: {
+        disable: true,
+      },
+    },
+    smallMedia: {
+      control: 'number',
+    },
+    mediumMedia: {
+      control: 'number',
+    },
+    primaryColor: {
+      control: 'color',
+    },
+    secondaryColor: {
+      control: 'color',
+    },
+  },
+  args: {
+    applicationHeadline: 'Polyfea Shell',
+    topbarMoreDisabled: false,
+    drawerDisabled: false,
+    drawerCloseDisabled: false,
+    railDisabled: false,
+    navigationDisabled: false,
+    themeMenu: true,
+    localeMenu: true,
+    topbarVariant: 'small',
+    smallMedia: 40,
+    mediumMedia: 80,
+    locales: ['en-us', 'sk', 'cs', 'de'],
+    localesPath: './locales',
+  },
+  render: args => {
+    const vwStyle = {
+      boxSizing: 'border-box',
+      display: 'block',
+      position: 'absolute',
+      top: '5px',
+      left: '5px',
+      right: '',
+      width: '',
+
+      bottom: '5px',
+      border: '1px solid #ccc',
+    };
+    if (!args.vwWidth) {
+      vwStyle.right = '5px';
+      vwStyle.width = 'auto';
+    } else {
+      vwStyle.right = 'auto';
+      vwStyle.width = args.vwWidth + 'rem';
+    }
+
+    return html`
+      <div style=${styleMap(vwStyle)} class="viewport-wrapper">
+        <polyfea-md-shell
+          application-headline=${args.applicationHeadline}
+          ?topbar-more-disabled=${args.topbarMoreDisabled}
+          ?drawer-disabled=${args.drawerDisabled}
+          ?drawer-close-disabled=${args.drawerCloseDisabled}
+          ?rail-disabled=${args.railDisabled}
+          ?navigation-disabled=${args.navigationDisabled}
+          ?theme-menu=${args.themeMenu}
+          ?locale-menu=${args.localeMenu}
+          topbar-variant=${args.topbarVariant}
+          small-breakpoint-rem=${args.smallMedia}
+          medium-breakpoint-rem=${args.mediumMedia}
+          .locales=${args.locales}
+          locales-path=${args.localesPath}
+          theme-primary-color=${args.primaryColor || nothing}
+          theme-secondary-color=${args.secondaryColor || nothing}
+        >
+          <div style="padding: 20px;">
+            <h2>Main Content</h2>
+            <p>This is the main content area.</p>
+          </div>
+          <polyfea-md-app slot="drawer" headline="Search" material-icon="search" mode="drawer"></polyfea-md-app>
+          <polyfea-md-app slot="navigation" headline="Reports" material-icon="bar_chart" mode="navigation"></polyfea-md-app>
+          <polyfea-md-app slot="rail" headline="Favorites" material-icon="favorite" mode="rail"></polyfea-md-app>
+        </polyfea-md-shell>
+      </div>
+    `;
+  },
+};
+
+export default meta;
+type Story = StoryObj<PolyfeaMdShellProps>;
+
+export const Default: Story = {
+  play: async ({ canvasElement, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    // Simple existence checks using shadow DOM queries if elements inside render shadow dom
+    // Note: Since shell uses slots, content is in light DOM of the wrapper in the story,
+    // but structure is in shadow DOM of shell.
+
+    // Assuming page element exists in shadow
+    const page = shell.shadowRoot?.querySelector('page');
+    await expect(page).toBeTruthy();
+  },
+};
+
+export const MediumSize: Story = {
+  args: {
+    vwWidth: 60,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    // Simple existence checks using shadow DOM queries if elements inside render shadow dom
+    // Note: Since shell uses slots, content is in light DOM of the wrapper in the story,
+    // but structure is in shadow DOM of shell.
+
+    // Assuming page element exists in shadow
+    const page = shell.shadowRoot?.querySelector('page');
+    await expect(page).toBeTruthy();
+  },
+};
+
+export const SmallSize: Story = {
+  args: {
+    vwWidth: 38,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    // Simple existence checks using shadow DOM queries if elements inside render shadow dom
+    // Note: Since shell uses slots, content is in light DOM of the wrapper in the story,
+    // but structure is in shadow DOM of shell.
+
+    // Assuming page element exists in shadow
+    const page = shell.shadowRoot?.querySelector('page');
+    await expect(page).toBeTruthy();
+  },
+};
+
+export const LargeSize: Story = {
+  args: {
+    vwWidth: 100,
+  },
+  play: async ({ canvasElement, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    // Simple existence checks using shadow DOM queries if elements inside render shadow dom
+    // Note: Since shell uses slots, content is in light DOM of the wrapper in the story,
+    // but structure is in shadow DOM of shell.
+
+    // Assuming page element exists in shadow
+    const page = shell.shadowRoot?.querySelector('page');
+    await expect(page).toBeTruthy();
+  },
+};
+
+export const Responsive: Story = {
+  args: {
+    vwWidth: 100,
+  },
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const viewport = canvasElement.querySelector('.viewport-wrapper') as HTMLElement;
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+    // Assuming page element exists in shadow
+    const page = shell.shadowRoot?.querySelector('page');
+    await expect(page).toBeTruthy();
+
+    await step('page size at large width', async () => {
+      await waitFor(async () => await expect(page).toHaveAttribute('size', 'large'));
+    });
+
+    await step('resize to medium width', async () => {
+      viewport.style.width = '70rem';
+      await waitFor(async () => {
+        await expect(page).toHaveAttribute('size', 'medium');
+      });
+    });
+  },
+};
+
+export const Localized: Story = {
+  args: {
+    locales: ['en-us', 'sk', 'cs', 'de'],
+    localesPath: './locales',
+  },
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    await step('Check localization - force to en-us', async () => {
+      await shell._localeRegistry!.setLocale('en-us');
+      await expect(shell._localeRegistry!.locale).toBe('en-us');
+      await waitFor(
+        async () => {
+          const mngmt = deepQuerySelector('polyfea-md-app[headline="User Management"]', shell.shadowRoot!);
+          await expect(mngmt).toBeInTheDocument();
+          await expect(mngmt?.shadowRoot!).toHaveTextContent(/User Management/);
+        },
+        { timeout: 3000 },
+      );
+    });
+
+    await step('switch to sk - app translated', async () => {
+      await shell._localeRegistry!.setLocale('sk');
+      await waitFor(
+        async () => {
+          const mngmt = deepQuerySelector('polyfea-md-app[headline="User Management"]', shell.shadowRoot!);
+          await expect(mngmt).toBeInTheDocument();
+          await expect(mngmt?.shadowRoot!).toHaveTextContent(/Správa používateľov/);
+        },
+        { timeout: 3000 },
+      );
+    });
+
+    await step('register new module locale loader and override mngmt translation', async () => {
+      shell._localeRegistry!.registerLocaleLoader('test-module', ['sk'], () =>
+        Promise.resolve({
+          templates: {
+            'user-management-title': 'Používatelia - preklad z modulu',
+            'dashboard-title': 'Grafy a analýzy',
+          },
+        }),
+      );
+      await waitFor(
+        async () => {
+          const mngmt = deepQuerySelector('polyfea-md-app[headline="User Management"]', shell.shadowRoot!);
+          await expect(mngmt).toBeInTheDocument();
+          await expect(mngmt?.shadowRoot!).toHaveTextContent(/Správa používateľov/); // overrides shall still override
+
+          const dashboard = deepQuerySelector('polyfea-md-app[headline="Dashboard"]', shell.shadowRoot!);
+          await expect(dashboard).toBeInTheDocument();
+          await expect(dashboard?.shadowRoot!).toHaveTextContent(/Grafy a analýzy/);
+        },
+        { timeout: 3000 },
+      );
+    });
+
+    await step('load-exception is ignored', async () => {
+      shell._localeRegistry!.registerLocaleLoader('test-module-2', ['sk'], () => {
+        throw new Error('Load exception');
+      });
+      await waitFor(
+        async () => {
+          const mngmt = deepQuerySelector('polyfea-md-app[headline="User Management"]', shell.shadowRoot!);
+          await expect(mngmt).toBeInTheDocument();
+          await expect(mngmt?.shadowRoot!).toHaveTextContent(/Správa používateľov/); // overrides shall still override
+
+          const dashboard = deepQuerySelector('polyfea-md-app[headline="Dashboard"]', shell.shadowRoot!);
+          await expect(dashboard).toBeInTheDocument();
+          await expect(dashboard?.shadowRoot!).toHaveTextContent(/Grafy a analýzy/);
+        },
+        { timeout: 3000 },
+      );
+    });
+  },
+};
+
+export const Theming: Story = {
+  args: {
+    primaryColor: '#00695C', //teal
+    secondaryColor: '#C62828', //red
+  },
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+
+    await step('set initially to light theme', async () => {
+      shell.dispatchEvent(new CustomEvent<Theme>('theme-changed', { detail: { isDark: false, scale: 1, locale: 'en-us', followSystemTheme: false } }));
+      await waitFor(async () => {
+        const page = deepQuerySelector('page', shell.shadowRoot!);
+        await expect(page).toHaveAttribute('theme', 'light');
+      });
+    });
+
+    await step('Change to dark theme', async () => {
+      shell.dispatchEvent(new CustomEvent<Theme>('theme-changed', { detail: { isDark: true, scale: 1, locale: 'en-us', followSystemTheme: false } }));
+      await waitFor(async () => {
+        const page = deepQuerySelector('page', shell.shadowRoot!);
+        await expect(page).toHaveAttribute('theme', 'dark');
+      });
+    });
+
+    await step('Change media preference ', async () => {
+      localStorage.setItem('theme', JSON.stringify({ isDark: false, scale: 1, locale: 'en-us', followSystemTheme: true }));
+      shell.dispatchEvent(new MediaQueryListEvent('theme-changed', { matches: false, media: '(prefers-color-scheme: dark)' }));
+      await waitFor(async () => {
+        const page = deepQuerySelector('page', shell.shadowRoot!);
+        await expect(page).toHaveAttribute('theme', 'light');
+      });
+    });
+
+    await step('ignore media preference when user preference set', async () => {
+      localStorage.setItem('theme', JSON.stringify({ isDark: false, scale: 1, locale: 'en-us', followSystemTheme: false }));
+      shell.dispatchEvent(new MediaQueryListEvent('theme-changed', { matches: true, media: '(prefers-color-scheme: dark)' }));
+      await waitFor(async () => {
+        const page = deepQuerySelector('page', shell.shadowRoot!);
+        await expect(page).toHaveAttribute('theme', 'light');
+      });
+    });
+  },
+};
+
+export const Drawer: Story = {
+  args: {
+    drawerDisabled: false,
+    vwWidth: 72,
+  },
+
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+    const drawer = shell.shadowRoot?.querySelector('drawer');
+
+    await step('Open drawer by event', async () => {
+      shell.dispatchEvent(new CustomEvent('drawer-opened'));
+      await waitFor(
+        async () => {
+          await expect(drawer).toHaveAttribute('open');
+        },
+        { timeout: 2000 },
+      );
+    });
+    await step('Close drawer by event', async () => {
+      shell.dispatchEvent(new CustomEvent('drawer-closed'));
+      await waitFor(async () => {
+        await expect(drawer).not.toHaveAttribute('open');
+      });
+    });
+    await step('Open drawer by button', async () => {
+      const open = deepQuerySelector('md-icon-button.drawer-button', shell.shadowRoot!) as HTMLElement;
+      await expect(open).toBeInTheDocument();
+      withinShadow(open).getByShadowRole('button').click();
+
+      await waitFor(async () => {
+        await expect(drawer).toHaveAttribute('open');
+      });
+    });
+    await step('Close drawer by button', async () => {
+      const close = deepQuerySelector('md-icon-button.close-button', shell.shadowRoot!) as HTMLElement;
+      await expect(close).toBeInTheDocument();
+      withinShadow(close).getByShadowRole('button').click();
+
+      await waitFor(async () => {
+        await expect(drawer).not.toHaveAttribute('open');
+      });
+    });
+    await step('Re-Open drawer', async () => {
+      shell.dispatchEvent(new CustomEvent('drawer-opened'));
+      await waitFor(
+        async () => {
+          await expect(drawer).toHaveAttribute('open');
+        },
+        { timeout: 2000 },
+      );
+    });
+    await step('Close by clicking on drawer', async () => {
+      const drawer = deepQuerySelector('drawer', shell.shadowRoot!) as HTMLElement;
+      await expect(drawer).toBeInTheDocument();
+      drawer.click();
+
+      await waitFor(async () => {
+        await expect(drawer).not.toHaveAttribute('open');
+      });
+    });
+    await step('Re-Open drawer', async () => {
+      shell.dispatchEvent(new CustomEvent('drawer-opened'));
+      await waitFor(
+        async () => {
+          await expect(drawer).toHaveAttribute('open');
+        },
+        { timeout: 2000 },
+      );
+    });
+  },
+};
+
+export const ScrollableContent: Story = {
+  args: {
+    vwWidth: 30,
+  },
+  play: async ({ canvasElement, step, args }) => {
+    const canvas = withinShadow(canvasElement);
+    const shell = canvasElement.querySelector('polyfea-md-shell') as PolyfeaMdShell;
+    const topbar = deepQuerySelector('topbar', shell.shadowRoot!) as HTMLElement;
+    await expect(topbar).toBeInTheDocument();
+    const main = deepQuerySelector('main', shell.shadowRoot!) as HTMLElement;
+    await expect(main).toBeInTheDocument();
+
+    await waitFor(async () => {
+      // make content scrollable
+      const apps = deepQuerySelectorAll('polyfea-md-app', shell.shadowRoot!);
+      expect(apps.length).toBeGreaterThan(3);
+    }, { timeout: 3000 });
+    await step('Check topbar is not scrolled initially', async () => {
+      await waitFor(async () => {
+        await expect(topbar).not.toHaveAttribute('scrolled');
+      });
+    });
+
+    await step('Check topbar scrolled attribute on content scroll', async () => {
+      main.scrollTop = 100;
+      fireEvent.scroll(main, { target: { scrollTop: 100 }, bubbles: true, composed: true });
+
+      await waitFor(async () => {
+        await expect(topbar).toHaveAttribute('scrolled');
+      });
+    });
+
+    await step('Check topbar scrolled attribute removed on scroll to top', async () => {
+      main.scrollTop = 0;
+      main.dispatchEvent(new Event('scroll'));
+
+      await waitFor(async () => {
+        await expect(topbar).not.toHaveAttribute('scrolled');
+      });
+    });
+
+    await step('scroll againl', async () => {
+      main.scrollTop = 300;
+      fireEvent.scroll(main, { target: { scrollTop: 300 }, bubbles: true, composed: true });
+
+      await waitFor(async () => {
+        await expect(topbar).toHaveAttribute('scrolled');
+      });
+    });
+
+  },
+};
+
+export const NoDrawer: Story = {
+  args: {
+    drawerDisabled: true,
+  },
+};
+
+export const NoRail: Story = {
+  args: {
+    railDisabled: true,
+  },
+};
+
+export const NoNavigation: Story = {
+  args: {
+    navigationDisabled: true,
+  },
+};
+
+export const AllDisabled: Story = {
+  args: {
+    drawerDisabled: true,
+    railDisabled: true,
+    navigationDisabled: true,
+  },
+};
+
+export const TopbarVariants: Story = {
+  args: {
+    topbarVariant: 'small',
+  },
+};

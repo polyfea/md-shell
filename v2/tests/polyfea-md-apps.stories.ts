@@ -7,7 +7,7 @@ import '../src/polyfea-md-app';
 import { PolyfeaMdApps } from '../src/polyfea-md-apps';
 
 const meta = {
-  title: 'Polyfea MD Shell/polyfea-md-apps',
+  title: 'Custom Elements/polyfea-md-apps',
   component: 'polyfea-md-apps',
   tags: ['autodocs'],
   render: args => html` <polyfea-md-apps applications-context=${args.applicationsContext || nothing}> ${args.slotContent} </polyfea-md-apps> `,
@@ -31,6 +31,14 @@ export default meta;
 type Story = StoryObj;
 
 export const Default: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'Default behavior set the context name to `applications`, and uses polyfea backend to fetch and display available applications.',
+            },
+        },
+    },
   args: {
     slotContent: html` <div style="padding: 1rem; color: var(--md-sys-color-on-surface-variant);">No applications available.</div> `,
   },
@@ -47,7 +55,16 @@ export const Default: Story = {
   },
 };
 
+
 export const Empty: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    'Illustrates the component\'s behavior when provided with a context ID that has no associated applications (`non-existing-context`).\n\n This story demonstrates how to utilize the default slot to render custom fallback content (e.g., an empty state message or illustration) when the `applicationsContext` yields no results.',
+            },
+        },
+    },
   args: {
     applicationsContext: 'non-existing-context',
     slotContent: html` <div style="padding: 1rem; color: var(--md-sys-color-on-surface-variant);">No applications available.</div> `,

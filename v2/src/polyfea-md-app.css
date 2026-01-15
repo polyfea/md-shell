@@ -36,7 +36,7 @@ a.card-wrapper {
   max-width: calc(2 * var(--_width));
 }
 
-:host([context="drawer-content"]) {
+:host(.drawer) {
   width: 100%;
   height: 3.5rem;
   flex-shrink: 0;
@@ -44,12 +44,22 @@ a.card-wrapper {
   flex-basis: 3.5rem;
 }
 
-:host([context="rail-content"]) {
+:host(.rail) {
   width: 100%;
   height: min-content;
   flex-shrink: 0;
   flex-grow: 0;
   flex-basis: min-content;
+}
+
+:host(.navigation) {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  flex-shrink: 0;
+  flex-grow: 0;
+  flex-basis: 3.5rem;
+  overflow: hidden;
 }
 
 
@@ -132,9 +142,9 @@ a.card-wrapper {
   box-sizing: border-box;
   height: 3.5rem;
   color: var(--md-sys-color-on-secondary-container);
-  font: var(--md-sys-typescale-title-medium-font, 0.85rem / 1.25rem 'Roboto Flex', Roboto, sans-serif);
+  font: var(--md-sys-typescale-title-medium, 800 0.85rem / 1.25rem 'Roboto Flex', Roboto, sans-serif);
   letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing, 0.00625rem);
-  border-radius: var(--md-sys-shape-corner-circle, 100%);
+  border-radius: var(--md-sys-shape-corner-full, 9999px);
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -176,7 +186,7 @@ a.card-wrapper {
   height: min-content;
   min-height: 3.5rem;
   text-align: center;
-  font: var(--md-sys-typescale-label-medium-font, 0.75rem / 1rem 'Roboto Flex', Roboto, sans-serif);
+  font: var(--md-sys-typescale-label-medium, 600 0.75rem / 1rem 'Roboto Flex', Roboto, sans-serif);
   letter-spacing: var(--md-sys-typescale-label-medium-letter-spacing, 0.03125rem);
   color: var(--md-sys-color-on-surface-variant);
   background-color: var(--md-sys-color-surface);
@@ -187,7 +197,7 @@ a.card-wrapper {
   position: relative;
   padding: 0.25rem 0;
   width: 100%;
-  border-radius: var(--md-sys-shape-corner-circle);
+  border-radius: var(--md-sys-shape-corner-full, 9999px);
   
 }
 
@@ -197,15 +207,7 @@ a.card-wrapper {
 }
 
 
-:host([context="navigation-content"]) {
-  width: 3.5rem;
-  height: 3.5rem;
-  display: flex;
-  flex-shrink: 0;
-  flex-grow: 0;
-  flex-basis: 3.5rem;
-  overflow: hidden;
-}
+
 
 .navigation-button {
   position: relative;
@@ -214,7 +216,7 @@ a.card-wrapper {
   width: min-content;
   min-width: 3.5rem;
   text-align: center;
-  font: var(--md-sys-typescale-label-medium-font, 0.75rem / 1rem 'Roboto Flex', Roboto, sans-serif);
+  font: var(--md-sys-typescale-label-medium, 600 0.75rem / 1rem 'Roboto Flex', Roboto, sans-serif);
   letter-spacing: var(--md-sys-typescale-label-medium-letter-spacing, 0.03125rem);
   color: var(--md-sys-color-on-surface-variant);
   background-color: inherit;
@@ -226,7 +228,7 @@ a.card-wrapper {
   position: relative;
   padding: 0.25rem 0;
   width: 100%;
-  border-radius: var(--md-sys-shape-corner-circle);
+  border-radius: var(--md-sys-shape-corner-full, 9999px);
 }
 
 .navigation-button .headline {

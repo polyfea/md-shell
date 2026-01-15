@@ -20,7 +20,7 @@ interface PolyfeaMdAppProps {
 }
 
 const meta = {
-  title: 'Polyfea MD Shell/polyfea-md-app',
+  title: 'Custom Elements/polyfea-md-app',
   component: 'polyfea-md-app',
   tags: ['autodocs'],
   render: args => html`
@@ -64,6 +64,17 @@ export default meta;
 type Story = StoryObj<PolyfeaMdAppProps>;
 
 export const TileMode: Story = {
+    parameters: {
+        docs: {
+            description: {
+                story:
+                    `Mode is determined either by "mode" attribute or by context name prefix.
+                    
+                    Tile mode displays headline, supporting text, and an image. If no image is specified, a colored content area is shown instead.
+                    `,
+            },
+        },
+    },
   args: {
     mode: 'tile',
   },
@@ -90,6 +101,13 @@ export const TileMode: Story = {
 };
 
 export const TileModeWithDisabledImage: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'This story demonstrates the tile mode when the image is explicitly disabled via the `tile-img-disabled` property. Only text content is shown.',
+      },
+    },
+  },
   args: {
     mode: 'tile',
     tileImgDisabled: true,
@@ -119,6 +137,13 @@ export const TileModeWithDisabledImage: Story = {
 
 
 export const DrawerMode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the drawer rendering mode, typically used in side navigation drawers. It displays an icon (image source) and the short headline.',
+      },
+    },
+  },
   args: {
     context: 'drawer-content',
     mode: 'drawer',
@@ -143,6 +168,13 @@ export const DrawerMode: Story = {
 };
 
 export const DrawerModeWithMaterialIcon: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Shows the drawer mode using a Material Symbol name provided via the `material-icon` property instead of an image source.',
+      },
+    },
+  },
   args: {
     context: 'drawer-content',
     mode: 'drawer',
@@ -170,6 +202,13 @@ export const DrawerModeWithMaterialIcon: Story = {
 };
 
 export const DrawerModeWithIconSlot: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Shows the drawer mode using a custom icon provided via the `icon` slot. The slot takes precedence over `icon-src` and `material-icon`.',
+      },
+    },
+  },
   args: {
     context: 'drawer-content',
     iconSrc: '',
@@ -213,6 +252,13 @@ export const DrawerModeWithIconSlot: Story = {
 };
 
 export const RailMode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the rail rendering mode, a compact vertical navigation style. It typically shows an icon with a label underneath.',
+      },
+    },
+  },
   args: {
     context: 'rail-content',
     mode: 'rail',
@@ -221,6 +267,13 @@ export const RailMode: Story = {
 };
 
 export const NavigationMode: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story: 'Demonstrates the navigation rendering mode, typically used in bottom navigation bars. Centers the icon and text.',
+      },
+    },
+  },
   args: {
     mode: 'navigation',
     iconSrc: '',
@@ -231,7 +284,7 @@ export const NavigationMode: Story = {
 
 
 export const TEST_HistoryAPI_Coverage: Story = {
-  tags: ['test'],
+  tags: ['test', '!autodocs'],
   name: '🧪 History API Coverage',
   args: {
     mode: 'tile',
@@ -266,7 +319,7 @@ export const TEST_HistoryAPI_Coverage: Story = {
 };
 
 export const TEST_TileWithNavigationAPI_Coverage: Story = {
-  tags: ['test'],
+  tags: ['test', '!autodocs'],
   name: '🧪 Navigation API Coverage for tile mod',
   args: {
     mode: 'tile',
@@ -298,7 +351,7 @@ export const TEST_TileWithNavigationAPI_Coverage: Story = {
 };
 
 export const TEST_IconWithNavigationAPI_Coverage: Story = {
-  tags: ['test'],
+  tags: ['test', '!autodocs'],
   name: '🧪 Navigation API Coverage for icon mod',
   args: {
     mode: 'drawer',
@@ -330,7 +383,7 @@ export const TEST_IconWithNavigationAPI_Coverage: Story = {
 };
 
 export const TEST_ActivePrefix: Story = {
-  tags: ['test'],
+  tags: ['test', '!autodocs'],
   name: '🧪 Active Prefix Property',
   args: {
     mode: 'tile',
@@ -352,7 +405,7 @@ export const TEST_ActivePrefix: Story = {
 };
 
 export const TEST_ActiveOnNavigationPrefix: Story = {
-  tags: ['test'],
+  tags: ['test', '!autodocs'],
   name: '🧪 Active Flag set on navigationsuccess',
   args: {
     mode: 'tile',
@@ -373,7 +426,7 @@ export const TEST_ActiveOnNavigationPrefix: Story = {
 
     await step('Verify in active mode after navigatesuccess', async () => {
         appElement.href = "/";
-        globalThis.navigation?.dispatchEvent(new Event('navigatesuccess'));
+        (globalThis as any).navigation?.dispatchEvent(new Event('navigatesuccess'));
         await waitFor(() => expect(appElement.isActive).toBe(true));
     });
   },

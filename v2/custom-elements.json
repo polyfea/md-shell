@@ -4,6 +4,71 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/localization.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "setLocalizationConfig",
+          "parameters": [
+            {
+              "name": "options",
+              "type": {
+                "text": "Partial<typeof config>"
+              },
+              "description": "Partial configuration object to override defaults."
+            }
+          ],
+          "description": "Updates the localization configuration."
+        },
+        {
+          "kind": "variable",
+          "name": "{ getLocale, setLocale }"
+        },
+        {
+          "kind": "function",
+          "name": "setUserLocale",
+          "parameters": [
+            {
+              "name": "locale",
+              "optional": true,
+              "type": {
+                "text": "string"
+              },
+              "description": "Valid locale string (e.g. 'en', 'es-419'). Optional."
+            }
+          ],
+          "description": "Sets the user locale. If no locale is provided, it attempts to resolve\nthe locale based on browser settings or stored preference.\n\nIt updates the document lang attribute and persists the choice in localStorage if a specific locale is provided."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "setLocalizationConfig",
+          "declaration": {
+            "name": "setLocalizationConfig",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "{ getLocale, setLocale }",
+          "declaration": {
+            "name": "{ getLocale, setLocale }",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setUserLocale",
+          "declaration": {
+            "name": "setUserLocale",
+            "module": "src/localization.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/polyfea-md-app.ts",
       "declarations": [
         {
@@ -116,7 +181,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) and [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
               "attribute": "href"
             },
             {
@@ -126,7 +191,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property specifies whether the element is actived on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path.",
+              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
               "attribute": "is-active-prefix"
             },
             {
@@ -229,7 +294,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) and [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
               "fieldName": "href"
             },
             {
@@ -238,7 +303,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property specifies whether the element is actived on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path.",
+              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
               "fieldName": "isActivePrefix"
             },
             {
@@ -293,7 +358,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "List of application tiles. This component may be used a  launcher page for additinal applications.",
+          "description": "List of application tiles. This component may be used as  launcher page for additinal applications.",
           "name": "PolyfeaMdApps",
           "slots": [
             {
@@ -308,8 +373,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"applications\"",
-              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md) \nelement that will be used to render the applications web components.",
+              "default": "'applications'",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\nelement that will be used to render the applications web components.",
               "attribute": "applications-context"
             }
           ],
@@ -319,8 +384,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"applications\"",
-              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md) \nelement that will be used to render the applications web components.",
+              "default": "'applications'",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\nelement that will be used to render the applications web components.",
               "fieldName": "applicationsContext"
             }
           ],
@@ -347,6 +412,856 @@
           "declaration": {
             "name": "PolyfeaMdApps",
             "module": "src/polyfea-md-apps.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-drawer-label.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A label component for use in Material Design drawers.",
+          "name": "PolyfeaMdDrawerLabel",
+          "slots": [
+            {
+              "description": "additional content of the label, or the headline if the `headline` property is not used",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The headline of the label. May be empty if slot is used",
+              "attribute": "headline"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The headline of the label. May be empty if slot is used",
+              "fieldName": "headline"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-drawer-label",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdDrawerLabel",
+          "declaration": {
+            "name": "PolyfeaMdDrawerLabel",
+            "module": "src/polyfea-md-drawer-label.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-drawer-label",
+          "declaration": {
+            "name": "PolyfeaMdDrawerLabel",
+            "module": "src/polyfea-md-drawer-label.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-drawer.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A navigation drawer component.",
+          "name": "PolyfeaMdDrawer",
+          "slots": [
+            {
+              "description": "This slot is for the main content of the drawer, typically a list of navigation links. It can contain: * `polyfea-md-drawer-label`: A label separator in the drawer list. * `polyfea-md-app`: Set its 'context' property to \"drawer-content\" to use it as a navigation element. * `md-divider`: A divider in the drawer list. * other elements that can be used in a navigation drawer.",
+              "name": ""
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "closeDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
+              "attribute": "close-disabled"
+            }
+          ],
+          "events": [
+            {
+              "name": "drawer-closed",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Rised when the close button is clicked indicating the user want to close the drawer."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "close-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
+              "fieldName": "closeDisabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-drawer",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdDrawer",
+          "declaration": {
+            "name": "PolyfeaMdDrawer",
+            "module": "src/polyfea-md-drawer.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-drawer",
+          "declaration": {
+            "name": "PolyfeaMdDrawer",
+            "module": "src/polyfea-md-drawer.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-navigation-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A navigation bar component, typically used at the bottom of the screen on mobile devices.",
+          "name": "PolyfeaMdNavigationBar",
+          "slots": [
+            {
+              "description": "This slot is for the navigation items. * `polyfea-md-app`: Set its 'context' property to \"navigation-content\" to use it as a navigation item.",
+              "name": ""
+            }
+          ],
+          "members": [],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-navigation-bar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdNavigationBar",
+          "declaration": {
+            "name": "PolyfeaMdNavigationBar",
+            "module": "src/polyfea-md-navigation-bar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-navigation-bar",
+          "declaration": {
+            "name": "PolyfeaMdNavigationBar",
+            "module": "src/polyfea-md-navigation-bar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-rail.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A navigation rail component, typically used on the side of the screen on medium to large devices.",
+          "name": "PolyfeaMdRail",
+          "slots": [
+            {
+              "description": "This slot is for the main content of the rail, typically a list of navigation actions. Use `polyfea-md-app` with attribute `context=\"rail-content\"`.",
+              "name": ""
+            },
+            {
+              "description": "This slot is for the primary action's FAB of the rail.",
+              "name": "primary-action"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "drawerDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "The rail show drawer open icon by default. Set this property to true to hide it",
+              "attribute": "drawer-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "contentPosition",
+              "type": {
+                "text": "'top' | 'middle' | 'bottom'"
+              },
+              "default": "'top'",
+              "description": "The alignment of the navigation actions.",
+              "attribute": "content-position"
+            }
+          ],
+          "events": [
+            {
+              "name": "drawer-opened",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Raised when the drawer open icon is clicked indicating the user want to open the drawer."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "drawer-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "The rail show drawer open icon by default. Set this property to true to hide it",
+              "fieldName": "drawerDisabled"
+            },
+            {
+              "name": "content-position",
+              "type": {
+                "text": "'top' | 'middle' | 'bottom'"
+              },
+              "default": "'top'",
+              "description": "The alignment of the navigation actions.",
+              "fieldName": "contentPosition"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-rail",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdRail",
+          "declaration": {
+            "name": "PolyfeaMdRail",
+            "module": "src/polyfea-md-rail.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-rail",
+          "declaration": {
+            "name": "PolyfeaMdRail",
+            "module": "src/polyfea-md-rail.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-shell.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.\nIt provides slots to customize these areas and context areas for dynamic content injection using polyfea-context.",
+          "name": "PolyfeaMdShell",
+          "cssProperties": [
+            {
+              "description": "Width of the navigation rail.",
+              "name": "--rail-width"
+            },
+            {
+              "description": "Width of the navigation drawer.",
+              "name": "--drawer-width"
+            },
+            {
+              "description": "Height of the navigation bar.",
+              "name": "--navigation-height"
+            },
+            {
+              "description": "Height of the footer area.",
+              "name": "--footer-height"
+            }
+          ],
+          "slots": [
+            {
+              "description": "Place content in the leading icon area of the top bar. Defaults to the drawer icon.  Overridden by `topbar-leading-icon` context area.",
+              "name": "topbar-leading"
+            },
+            {
+              "description": "Place content in the trailing icon area of the top bar. Defaults to the menu icon. Overridden by `topbar-trailing-icon` context area.",
+              "name": "topbar-trailing"
+            },
+            {
+              "description": "Place content in the top bar's menu area. Overridden by `topbar-menu-items` context area. Use [md-menu-item](https://github.com/material-components/material-web/blob/main/docs/components/menu.md#mdmenuitem-md-menu-item) for menu items.",
+              "name": "topbar-menu"
+            },
+            {
+              "description": "Place content in the navigation bar. Recommended: [polyfea-md-app](../polyfea-md-app/readme.md) elements. Overriden by `navigation-content` context area.",
+              "name": "navigation"
+            },
+            {
+              "description": "Place content in the navigation rail. Recommended: [polyfea-md-app](../polyfea-md-app/readme.md) elements. Overriden by `rail-content` context area.",
+              "name": "rail"
+            },
+            {
+              "description": "Place content in the navigation drawer. Recommended: [polyfea-md-app](../polyfea-md-app/readme.md) elements. Overriden by `drawer-content` context area.",
+              "name": "drawer"
+            },
+            {
+              "description": "Place content in the main content area. For landing page, use [polyfea-md-apps](../polyfea-md-apps/readme.md) element. Overriden by `main-content` context area.",
+              "name": ""
+            },
+            {
+              "description": "Place content in the primary action area of the navigation rail. Recommended: [md-fab](https://github.com/material-components/material-web/blob/main/docs/components/fab.md) elements. Overriden by `rail-primary-actions` context area. Overriden by `rail-primary-action` context area.",
+              "name": "rail-primary-action"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "applicationHeadline",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Polyfea Shell'",
+              "description": "The name of the application displayed in the top bar. This is only shown \nif the `app-shell-title` context area is empty.",
+              "attribute": "application-headline"
+            },
+            {
+              "kind": "field",
+              "name": "topbarMoreDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the menu button on the right side of the top bar will be hidden.",
+              "attribute": "topbar-more-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "drawerDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation drawer will be hidden in all screen resolutions.",
+              "attribute": "drawer-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "drawerCloseDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the close button in the navigation drawer is hidden.",
+              "attribute": "drawer-close-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "railDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation rail will be hidden in all screen resolutions.",
+              "attribute": "rail-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "navigationDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation bar will be hidden in all screen resolutions.",
+              "attribute": "navigation-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "themeMenuDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls the visibility of the legibility buttons (font size adjustment, theme toggle) in the top bar menu.",
+              "attribute": "theme-menu-disabled"
+            },
+            {
+              "kind": "field",
+              "name": "topbarVariant",
+              "type": {
+                "text": "\"centered\" | \"small\" | \"medium\" | \"large\""
+              },
+              "default": "\"centered\"",
+              "description": "Variant of the topbar. See [Top App Bar](https://m3.material.io/components/top-app-bar/overview) documentation.",
+              "attribute": "topbar-variant"
+            },
+            {
+              "kind": "field",
+              "name": "drawerOpen",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "true"
+            },
+            {
+              "kind": "field",
+              "name": "scrolled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false"
+            },
+            {
+              "kind": "method",
+              "name": "drawerClosedHandler"
+            },
+            {
+              "kind": "method",
+              "name": "drawerOpenedHandler"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "application-headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "'Polyfea Shell'",
+              "description": "The name of the application displayed in the top bar. This is only shown \nif the `app-shell-title` context area is empty.",
+              "fieldName": "applicationHeadline"
+            },
+            {
+              "name": "topbar-more-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the menu button on the right side of the top bar will be hidden.",
+              "fieldName": "topbarMoreDisabled"
+            },
+            {
+              "name": "drawer-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation drawer will be hidden in all screen resolutions.",
+              "fieldName": "drawerDisabled"
+            },
+            {
+              "name": "drawer-close-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Determines whether the close button in the navigation drawer is hidden.",
+              "fieldName": "drawerCloseDisabled"
+            },
+            {
+              "name": "rail-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation rail will be hidden in all screen resolutions.",
+              "fieldName": "railDisabled"
+            },
+            {
+              "name": "navigation-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the navigation bar will be hidden in all screen resolutions.",
+              "fieldName": "navigationDisabled"
+            },
+            {
+              "name": "theme-menu-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls the visibility of the legibility buttons (font size adjustment, theme toggle) in the top bar menu.",
+              "fieldName": "themeMenuDisabled"
+            },
+            {
+              "name": "topbar-variant",
+              "type": {
+                "text": "\"centered\" | \"small\" | \"medium\" | \"large\""
+              },
+              "default": "\"centered\"",
+              "description": "Variant of the topbar. See [Top App Bar](https://m3.material.io/components/top-app-bar/overview) documentation.",
+              "fieldName": "topbarVariant"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-shell",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdShell",
+          "declaration": {
+            "name": "PolyfeaMdShell",
+            "module": "src/polyfea-md-shell.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-shell",
+          "declaration": {
+            "name": "PolyfeaMdShell",
+            "module": "src/polyfea-md-shell.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-theme-control.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "A control component to toggle between light and dark themes or adjust font sizes.\nIt can be rendered as an icon button, a menu item, or a hidden preset loader.",
+          "name": "PolyfeaMdThemeControl",
+          "members": [
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "\"button\" | \"menu-item\" | \"preset\""
+              },
+              "default": "\"button\"",
+              "description": "This property controls the display variant of the theme control. It can be used to render the control \nas an icon button or a menu item. \n\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage. \nInclude this in your document to ensure the theme is properly initialized.",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "control",
+              "type": {
+                "text": "\"theme-toggle\" | \"text-increase\" | \"text-decrease\" | \"reset-font\""
+              },
+              "default": "\"theme-toggle\"",
+              "description": "This property specifies which aspect of the theme is controlled by this element.",
+              "attribute": "control"
+            },
+            {
+              "kind": "field",
+              "name": "defaultTextSize",
+              "type": {
+                "text": "number"
+              },
+              "default": "16",
+              "attribute": "default-text-size"
+            }
+          ],
+          "events": [
+            {
+              "name": "theme-changed",
+              "type": {
+                "text": "CustomEvent"
+              },
+              "description": "Fired when the theme is changed by the user."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "variant",
+              "type": {
+                "text": "\"button\" | \"menu-item\" | \"preset\""
+              },
+              "default": "\"button\"",
+              "description": "This property controls the display variant of the theme control. It can be used to render the control \nas an icon button or a menu item. \n\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage. \nInclude this in your document to ensure the theme is properly initialized.",
+              "fieldName": "variant"
+            },
+            {
+              "name": "control",
+              "type": {
+                "text": "\"theme-toggle\" | \"text-increase\" | \"text-decrease\" | \"reset-font\""
+              },
+              "default": "\"theme-toggle\"",
+              "description": "This property specifies which aspect of the theme is controlled by this element.",
+              "fieldName": "control"
+            },
+            {
+              "name": "default-text-size",
+              "type": {
+                "text": "number"
+              },
+              "default": "16",
+              "fieldName": "defaultTextSize"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-theme-control",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdThemeControl",
+          "declaration": {
+            "name": "PolyfeaMdThemeControl",
+            "module": "src/polyfea-md-theme-control.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-theme-control",
+          "declaration": {
+            "name": "PolyfeaMdThemeControl",
+            "module": "src/polyfea-md-theme-control.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/polyfea-md-topbar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "description": "An element for top application bars following Material Design guidelines.",
+          "name": "PolyfeaMdTopbar",
+          "slots": [
+            {
+              "description": "The headline of the top bar. If not provided, the value of the `headline` property is shown.",
+              "name": "headline"
+            },
+            {
+              "description": "The leading icon or button of the top bar. If not provided, the content is controlled by the `leading-icon` property.",
+              "name": "leading"
+            },
+            {
+              "description": "The trailing actions - icons or buttons of the top bar,",
+              "name": "trailing"
+            },
+            {
+              "description": "The menu items of the \"more actions\" menu. Shall be elements of type `<md-menu-item>`.",
+              "name": "menu"
+            }
+          ],
+          "members": [
+            {
+              "kind": "field",
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Polyfea\"",
+              "description": "Text of the headline",
+              "attribute": "headline"
+            },
+            {
+              "kind": "field",
+              "name": "leadingIcon",
+              "type": {
+                "text": "\"none\" | \"drawer\" | \"back\""
+              },
+              "default": "\"drawer\"",
+              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \nPossible values are:\n- `none` - No icon is shown.\n- `drawer` - A menu icon is shown that opens the drawer.\n- `back` - A back icon is shown that emits a `back` event.",
+              "attribute": "leading-icon"
+            },
+            {
+              "kind": "field",
+              "name": "variant",
+              "type": {
+                "text": "\"centered\" | \"small\" | \"medium\" | \"large\""
+              },
+              "default": "\"centered\"",
+              "description": "Variant of the applications top bar - changes the layout and size of the top bar.",
+              "attribute": "variant"
+            },
+            {
+              "kind": "field",
+              "name": "moreActionsDisabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls if right side icon with more actions menu is rendered",
+              "attribute": "more-actions-disabled"
+            }
+          ],
+          "events": [
+            {
+              "name": "drawer-opened",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Emitted when clicking on the drawer leading icon button. Refers to parent to handle side navigation."
+            },
+            {
+              "name": "back",
+              "type": {
+                "text": "Event"
+              },
+              "description": "Emitted when clicking on the back leading icon button."
+            }
+          ],
+          "attributes": [
+            {
+              "name": "headline",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"Polyfea\"",
+              "description": "Text of the headline",
+              "fieldName": "headline"
+            },
+            {
+              "name": "leading-icon",
+              "type": {
+                "text": "\"none\" | \"drawer\" | \"back\""
+              },
+              "default": "\"drawer\"",
+              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \nPossible values are:\n- `none` - No icon is shown.\n- `drawer` - A menu icon is shown that opens the drawer.\n- `back` - A back icon is shown that emits a `back` event.",
+              "fieldName": "leadingIcon"
+            },
+            {
+              "name": "variant",
+              "type": {
+                "text": "\"centered\" | \"small\" | \"medium\" | \"large\""
+              },
+              "default": "\"centered\"",
+              "description": "Variant of the applications top bar - changes the layout and size of the top bar.",
+              "fieldName": "variant"
+            },
+            {
+              "name": "more-actions-disabled",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "Controls if right side icon with more actions menu is rendered",
+              "fieldName": "moreActionsDisabled"
+            }
+          ],
+          "superclass": {
+            "name": "LitElement",
+            "package": "lit"
+          },
+          "tagName": "polyfea-md-topbar",
+          "customElement": true
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PolyfeaMdTopbar",
+          "declaration": {
+            "name": "PolyfeaMdTopbar",
+            "module": "src/polyfea-md-topbar.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "polyfea-md-topbar",
+          "declaration": {
+            "name": "PolyfeaMdTopbar",
+            "module": "src/polyfea-md-topbar.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/generated/locale-codes.ts",
+      "declarations": [
+        {
+          "kind": "variable",
+          "name": "sourceLocale",
+          "default": "`en`",
+          "description": "The locale code that templates in this source code are written in."
+        },
+        {
+          "kind": "variable",
+          "name": "targetLocales",
+          "type": {
+            "text": "[\n  `cs`,\n  `de`,\n  `es`,\n  `sk`,\n]"
+          },
+          "default": "[ `cs`, `de`, `es`, `sk`, ]",
+          "description": "The other locale codes that this application is localized into. Sorted\nlexicographically."
+        },
+        {
+          "kind": "variable",
+          "name": "allLocales",
+          "type": {
+            "text": "[\n  `cs`,\n  `de`,\n  `en`,\n  `es`,\n  `sk`,\n]"
+          },
+          "default": "[ `cs`, `de`, `en`, `es`, `sk`, ]",
+          "description": "All valid project locale codes. Sorted lexicographically."
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "sourceLocale",
+          "declaration": {
+            "name": "sourceLocale",
+            "module": "src/generated/locale-codes.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "targetLocales",
+          "declaration": {
+            "name": "targetLocales",
+            "module": "src/generated/locale-codes.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "allLocales",
+          "declaration": {
+            "name": "allLocales",
+            "module": "src/generated/locale-codes.ts"
           }
         }
       ]

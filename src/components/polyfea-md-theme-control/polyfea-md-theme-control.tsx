@@ -44,8 +44,6 @@ export class PolyfeaMdThemeControl {
     }
   }
 
-
-
   componentWillLoad() {
     this.html = document.querySelector('html');
     const preset = this.load();
