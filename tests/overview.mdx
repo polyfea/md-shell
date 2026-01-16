@@ -1,0 +1,24 @@
+import { Canvas, Source, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction/Overview" />
+
+# Polyfea Material Shell
+
+The **Polyfea Material Shell** (`@polyfea/md-shell`) is a specialized library of Web Components designed to provide a robust, responsive application shell based on [Material Design 3](https://m3.material.io/).
+
+## Purpose
+
+The primary purpose of this project is to serve as the foundational layout layer for web applications, specifically functionality within the **Polyfea** ecosystem. It abstracts away the complexity of managing responsive layouts, navigation states, and systemic theming, allowing developers to focus on building the specific business logic and content of their micro-applications.
+
+## Goals
+
+1.  **Responsive Consistency**: To ensure applications look and behave correctly across all device sizes—transitioning seamlessly from a bottom navigation bar on mobile, to a navigation rail on tablets, to a full drawer on desktops.
+2.  **Microfrontend Integration**: To provide ["slots"](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/slot) and ["context areas"](https://polyfea.github.io/documentation/core-concepts/browsercore/) that allow decoupled microfrontends to inject navigation items, top-bar actions, and main content without hard dependencies on the shell implementation.
+3.  **Material Design 3 Compliance**: To provide a strict implementation of MD3 guidelines, including dynamic color systems, elevation, and typography scales.
+4.  **Accessibility & Localization**: To include built-in support for theme modes, font scaling controls, and internationalization (i18n).
+
+## Key Components
+
+*   **`polyfea-md-shell`**: The root container that orchestrates the layout grid and manages the visibility of navigation areas.
+*   **`polyfea-md-apps`**: The application launcher component that displays registered microfrontends in a grid or list format.
+*   **`polyfea-md-app`**: A polymorphic link component that automatically renders as a card, list item, or icon depending on where it is placed (Launcher, Drawer, or Rail).

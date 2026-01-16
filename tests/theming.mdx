@@ -1,0 +1,108 @@
+import { Canvas, Source, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction/Theming" />
+
+# Theming System
+
+The `polyfea-md-shell` implements Material Design 3 (Material You) dynamic theming. It automatically generates a complete set of design tokens (CSS variables) based on a few seed colors and font selections provided via attributes.
+
+## 1. Color Customization
+
+You do not need to define every single color variable manually. Instead, provide key "seed" colors, and the shell will generate tonal palettes for both light and dark modes automatically using algorithms from `@material/material-color-utilities`.
+
+<Source code={`
+<polyfea-md-shell
+  theme-primary-color="#415F91"
+  theme-secondary-color="#565F71"
+  theme-tertiary-color="#705575"
+  theme-error-color="#B3261E"
+>
+  <!-- Application Content -->
+</polyfea-md-shell>
+`} language="html" />
+
+### Seed Colors
+*   **Primary**: The source for the primary color palette. Used for FABs, active states, and prominent buttons.
+*   **Secondary**: Used for less prominent components like filter chips.
+*   **Tertiary**: Used for contrasting accents.
+*   **Error**: Used for error states and warnings.
+
+If these attributes are omitted, the standard Material 3 baseline colors are used.
+
+---
+
+## 2. Typography Customization
+
+The shell organizes typography into three logical roles: **Brand**, **Plain**, and **Icons**.
+
+<Source code={`
+<polyfea-md-shell
+  theme-brand-font="'Roboto Slab', serif"
+  theme-plain-font="'Roboto Flex', sans-serif"
+  theme-icon-font="'Material Symbols Outlined'"
+>
+</polyfea-md-shell>
+`} language="html" />
+
+*   **Brand Font**: Applied to expressive headlines (Display, Headline, Title Large).
+*   **Plain Font**: Applied to body text and UI labels (Body, Label, Title Medium/Small).
+*   **Icon Font**: Applied to `<md-icon>` elements.
+
+### ⚠️ Important: Font Loading Responsibility
+
+The attributes above only set the CSS `font-family` property. **The shell does not download font files automatically.** You must ensure the fonts are loaded in your page.
+
+#### Option A: Use the Bundled Fonts
+The package provides a CSS file containing the default font stack (Roboto Flex, Roboto Slab, and Material Symbols). You can link this in your HTML:
+
+<Source code={`
+<link rel="stylesheet" href="node_modules/@polyfea/md-shell/assets/fonts.css" />
+`} language="html" />
+
+#### Option B: Load Manually
+You can load fonts from any source, such as Google Fonts or a corporate CDN, as long as the names match what you pass to `polyfea-md-shell`.
+
+<Source code={`
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:wght@100..900&display=swap" rel="stylesheet">
+<!-- Then use theme-plain-font="'Roboto Flex', sans-serif" -->
+`} language="html" />
+
+---
+
+## 3. Design Tokens
+
+The shell acts as a global theme provider for your micro-frontend application. It injects standard Material Design 3 CSS custom properties into its scope, making them available to all child components (slotted content).
+
+### Generated Variables
+Any web component inside the shell can consume these variables to match the active theme:
+
+*   **Colors**: `--md-sys-color-primary`, `--md-sys-color-surface`, `--md-sys-color-on-primary`, etc.
+*   **Typography**: `--md-sys-typescale-body-medium`, `--md-sys-typescale-headline-large`, etc.
+*   **Shape**: `--md-sys-shape-corner-medium`, etc.
+
+This creates a seamless integration with standard libraries like `@material/web`.
+
+---
+
+## 4. Runtime User Preferences
+
+The shell supports runtime theme switching (Light/Dark mode) and accessibility enhancements (Text Scaling).
+
+You can control these features using the `<polyfea-md-theme-control>` component, which can be placed inside menus or settings pages. The shell listens for `theme-changed` events and updates all CSS tokens instantly without a page reload.
+
+<Source code={`
+<!-- Switch between Light/Dark theme -->
+<polyfea-md-theme-control control="theme-toggle"></polyfea-md-theme-control>
+
+<!-- Increase base font size for accessibility -->
+<polyfea-md-theme-control control="text-increase"></polyfea-md-theme-control>
+`} language="html" />
+
+You can enable built-in menu items for these controls by setting the `theme-menu` attribute on the shell:
+
+<Source code={`
+<polyfea-md-shell theme-menu>
+  <!-- Application Content -->
+</polyfea-md-shell>
+`} language="html" />
+
