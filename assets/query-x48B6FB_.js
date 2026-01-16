@@ -1,0 +1,1 @@
+const c=(r,t,e)=>(e.configurable=!0,e.enumerable=!0,Reflect.decorate&&typeof t!="object"&&Object.defineProperty(r,t,e),e);function a(r,t){return(e,o,l)=>{const n=u=>u.renderRoot?.querySelector(r)??null;return c(e,o,{get(){return n(this)}})}}export{c as a,a as e};
