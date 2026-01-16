@@ -5,6 +5,24 @@ metadata:
 spec:
   frontendClass: fea
   service: http://polyfea-md-shell.default.svc.cluster.local
-  modulePath: md-shell.esm.js
-  dependsOn:
-    - material-design
+  modulePath: elements.js
+  staticPaths:
+    # fonts
+    - kind: stylesheet
+      path: assets/fonts.css
+  importMap:
+    imports:
+      lit: /imports/lit/index.js
+      lit/: /imports/lit/
+      lit-html: /imports/lit-html/lit-html.js
+      lit-html/: /imports/lit-html/
+      lit-element/lit-element.js: /imports/lit-element/lit-element.js
+      lit-element/: /imports/lit-element/
+      "@lit/reactive-element": /imports/@lit/reactive-element/reactive-element.js
+      "@lit/reactive-element/": /imports/@lit/reactive-element/
+      "@lit/localize": /imports/@lit/localize/lit-localize.js
+      "@lit/localize/": /imports/@lit/localize/
+      "@lit/context": /imports/@lit/context/context.js
+      "@lit/context/": /imports/@lit/context/
+      "@material/web": /imports/@material/web/common.js #safe net - use specific entrypoint
+      "@material/web/": /imports/@material/web/

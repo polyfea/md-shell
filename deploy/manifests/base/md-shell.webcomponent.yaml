@@ -9,6 +9,12 @@ spec:
     - name: application-headline
       # change to your application name
       value: Polyfea Shell Application
+    - name: locale-menu
+      value: "true"
+    - name: locales
+      value: '"en", "sk", "cz", "de", "es", "fr"]'
+    - name: theme-menu
+      value: "true"
   displayRules:
     - anyOf:
       - context-name: shell

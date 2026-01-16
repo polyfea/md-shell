@@ -1,0 +1,75 @@
+import { Canvas, Source, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction/Usage" />
+
+# Getting Started
+
+The `@polyfea/polyfea-md-shell` package provides a set of Material Design 3 enabled components designed to build responsive, micro-frontend ready application shells.
+
+## Core Components
+
+The architecture revolves around three main elements that structure your application layout.
+
+### 1. The Shell (`<polyfea-md-shell>`)
+
+This is the top-level container for your application. It handles the responsive layout grid, theming, localization context, and global navigation areas (Top Bar, Drawer, Rail).
+
+*   **Responsiveness**: Automatically switches between Navigation Drawer (desktop) and Navigation Rail (tablet/mobile).
+*   **Theming**: Hosts the design tokens and theme providers. See [Theming](/docs/features-theming--docs).
+*   **Context**: Provides slots and [Polyfea context areas](https://polyfea.github.io/documentation/core-concepts/browsercore/) for injecting content.
+
+<Source code={`
+<polyfea-md-shell application-headline="My App">
+  <!-- Content goes here -->
+</polyfea-md-shell>
+`} language="html" />
+
+### 2. The App Switcher (`<polyfea-md-apps>`)
+
+Designed for the landing page or a "dashboard" view. It displays a grid of available applications or modules as cards. It is responsive and adjusts the grid columns based on available screen width.
+
+<Source code={`
+<polyfea-md-shell>
+  <polyfea-md-apps>
+    <polyfea-md-app name="inventory" icon="inventory_2" label="Inventory"></polyfea-md-app>
+    <polyfea-md-app name="users" icon="group" label="User Management"></polyfea-md-app>
+  </polyfea-md-apps>
+</polyfea-md-shell>
+`} language="html" />
+
+### 3. The Navigation Item (`<polyfea-md-app>`)
+
+A versatile navigation element that adapts its appearance based on where it is placed.
+
+*   **In `<polyfea-md-apps>`**: Renders as a Card (Entry point).
+*   **In `slot="drawer"`**: Renders as a Navigation Drawer Item.
+*   **In `slot="rail"`**: Renders as a Navigation Rail Item.
+*   **In `slot="navigation"`**: Renders as a Navigation Bar Item (bottom nav).
+
+This polymorphic behavior allows you to reuse the same component definition across different navigation contexts.
+
+<Source code={`
+<polyfea-md-shell>
+  <!-- Sidebar Navigation -->
+  <div slot="drawer">
+    <polyfea-md-app name="home" icon="home" label="Home" active></polyfea-md-app>
+    <polyfea-md-app name="settings" icon="settings" label="Settings"></polyfea-md-app>
+  </div>
+
+  <!-- Content -->
+  <h1>Welcome Home</h1>
+</polyfea-md-shell>
+`} language="html" />
+
+---
+
+## Integration via Polyfea Controller
+
+While these components can be used standalone in any HTML/Lit page, they are optimized for the [Polyfea Controller](https://polyfea.github.io/documentation/).
+
+When used with the controller:
+1.  **Context Injection**: The shell defines `context` zones (e.g., `topbar-trailing-icon`, `drawer-content`).
+2.  **Micro-frontends**: Independent modules can target these zones to inject their own UI elements (e.g., a "User Profile" widget in the top bar) without modifying the shell's code.
+
+See [Deployment](/docs/introduction-deployment--docs) for examples of how to deploy micro-frontends into the shell using Polyfea Controller.
+See [Localization](/docs/introduction-localization--docs) for details on how micro-frontends can contribute translations dynamically.

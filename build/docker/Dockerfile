@@ -1,7 +1,7 @@
 
 
 # build md-shell
-FROM node:21 AS fea-build
+FROM node:24 AS fea-build
 
 WORKDIR /workspace
 
@@ -15,11 +15,20 @@ RUN npm run precompress
 RUN find . -type f -name '*.map' -delete
 
 # create minimalistic httpd image
-FROM ghcr.io/polyfea/spa-base as md-shell
+FROM ghcr.io/polyfea/spa-base AS md-shell
 
 EXPOSE 7105
 
-COPY --from=fea-build /workspace/dist/md-shell/ /spa/public/
+COPY --from=fea-build /workspace/dist/ /spa/public/
+# include common libs for import maps
+COPY --from=fea-build /workspace/node_modules/@lit/context/ /spa/public/imports/@lit/context/
+COPY --from=fea-build /workspace/node_modules/@lit/localize/ /spa/public/imports/@lit/localize/
+COPY --from=fea-build /workspace/node_modules/@lit/reactive-element/ /spa/public/imports/@lit/reactive-element/
+COPY --from=fea-build /workspace/node_modules/@material/web/ /spa/public/imports/@material/web/
+COPY --from=fea-build /workspace/node_modules/lit-html/ /spa/public/imports/lit-html/
+COPY --from=fea-build /workspace/node_modules/lit-element/ /spa/public/imports/lit-element/
+COPY --from=fea-build /workspace/node_modules/lit/ /spa/public/imports/lit/
+
 
 ENV OTEL_SERVICE_NAME=polyfea-md-shell
 ENV SPA_BASE_FALLBACK_DISABLED=true

@@ -1,0 +1,185 @@
+import { Canvas, Source, Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction/Deployment" />
+
+# Kubernetes Deployment via Polyfea Controller
+
+The `polyfea-md-shell` is designed to be deployed as a **MicroFrontend** resource within a Kubernetes cluster managed by the [Polyfea Controller](https://polyfea.github.io/documentation).
+
+In this architecture, the Shell plays a dual role:
+1.  **UI Container**: It provides the visible layout (Top Bar, Drawer, etc.).
+2.  **Platform Provider**: It serves shared dependencies (Lit, Material Web) and global assets to other micro-frontends in the cluster.
+
+> **Note:** This guide assumes you have a working Polyfea Controller setup. Refer to the [Polyfea documentation](https://polyfea.github.io/documentation/getting-started/) for initial setup instructions.
+
+---
+
+## 1. Defining the MicroFrontend
+
+To make the shell available to the platform, apply a `MicroFrontend` Custom Resource. This registers the assets and shared libraries.
+
+**File:** `deploy/manifests/base/md-shell.microfrontend.yaml`
+
+<Source code={`
+apiVersion: polyfea.github.io/v1alpha1
+kind: MicroFrontend
+metadata:
+  name: polyfea-md-shell
+spec:
+  frontendClass: fea
+  service: http://polyfea-md-shell.default.svc.cluster.local
+  
+  # Entry point exporting the web components (Shell, App Switcher, Title, etc.)
+  modulePath: elements.js
+  
+  # Global assets injected into the <head> of the main document
+  staticPaths:
+    - kind: stylesheet
+      path: assets/fonts.css 
+      
+  # Shared libraries offered to other micro-frontends
+  importMap:
+    imports:
+      lit: /imports/lit/index.js
+      lit/: /imports/lit/
+      lit-html: /imports/lit-html/lit-html.js
+      "@lit/context": /imports/@lit/context/context.js
+      "@material/web/": /imports/@material/web/
+`} language="yaml" />
+
+### Key Configuration Concepts
+
+The configuration above solves specific challenges in micro-frontend architectures:
+
+#### A. Shared Runtime & Singleton State (`importMap`)
+**Problem:** If every micro-frontend bundles its own version of `lit` or `@lit/context`, the application becomes heavy, and communication features (Context API) break because different instances of the library don't recognize each other.
+
+**Solution:** The Shell configures an `importMap`. This tells the browser: *"When any micro-frontend asks for `lit`, do not download a new copy. Use the one shared by `polyfea-md-shell` at `/imports/lit/...`."*
+This ensures that:
+*   **Performance:** Code is downloaded once and cached.
+*   **Stability:** All components share the same Context and State management.
+
+#### B. Global Asset Injection (`staticPaths`)
+**Problem:** Web Components use Shadow DOM, which encapsulates styles. However, fonts (`@font-face`) must be defined in the global document scope to be visible to all shadow roots.
+
+**Solution:** The `staticPaths` array instructs the Polyfea Controller to inject the `assets/fonts.css` link tag into the main document `<head>`. This loads Roboto and Material Symbols fonts globally.
+
+---
+
+## 2. Instantiating the Shell
+
+Once the MicroFrontend is registered, it doesn't appear on the screen automatically. you must create a `WebComponent` resource to instantiate it in the `shell` context.
+
+**File:** `deploy/manifests/base/md-shell.webcomponent.yaml`
+
+<Source code={`
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: polyfea-md-shell
+spec:
+  microFrontend: polyfea-md-shell
+  element: polyfea-md-shell
+  attributes: 
+    - name: application-headline
+      value: "Mission Control"
+    - name: locale-menu
+      value: "true"
+    - name: locales
+      value: '["en", "sk", "de"]'
+  displayRules:
+    - anyOf:
+      - context-name: shell # The root context provided by the platform
+`} language="yaml" />
+
+Once instantiated, the **Shell creates new context areas** for other applications to inhabit:
+*   `drawer-content`
+*   `rail-content`
+*   `navigation-content`
+*   `main-content`
+*   `topbar-actions`
+
+---
+
+## 3. Populating the Shell
+
+You can now compose your application by deploying specific components into the context areas created by the shell.
+
+### A. The App Launcher (Dashboard)
+Displays a grid of available applications on the root path `/`.
+
+
+**File:** `deploy/manifests/base/applications.webcomponent.yaml`
+
+<Source code={`
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: applications
+spec:
+  microFrontend: polyfea-md-shell
+  element: polyfea-md-apps
+  attributes: 
+    - name: applications-context
+      value: applications # Defines a new context area for cards
+  displayRules:
+    - allOf:
+      - context-name: main-content
+      - path: "^(\\.?/)?$"  # Matches root path /
+`} language="yaml" />
+
+### B. Adding a Feature Application
+This example adds a "Saturn Mission" feature. It registers a navigation tile (in drawer/rail) and the actual content view.
+
+
+**File:** `deploy/manifests/with-sample-apps/saturn.webcomponent.yaml`
+
+<Source code={`
+# 1. The Navigation Tile
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: saturn-nav-link
+spec:
+  microFrontend: polyfea-md-shell
+  element: polyfea-md-app
+  attributes: 
+    - name: headline
+      value: Saturn Mission
+    - name: material-icon
+      value: public
+    - name: href
+      value: ./saturn
+  priority: 20 
+  displayRules:
+    - anyOf:
+      # Show in app launcher, rail, and drawer simultaneously
+      - context-name: applications
+      - context-name: rail-content
+      - context-name: drawer-content
+---
+# 2. The Main Content
+apiVersion: polyfea.github.io/v1alpha1
+kind: WebComponent
+metadata:
+  name: saturn-content-view
+spec:
+  microFrontend: polyfea-md-shell
+  element: img
+  attributes: 
+    - name: src
+      value: https://live.staticflickr.com/5506/30737246655_1da181f436_o.jpg
+  displayRules:
+    - allOf:
+      - context-name: main-content
+      - path: "^(\\.?/)?saturn(/.*)?$" # Matches /saturn path
+`} language="yaml" />
+
+---
+
+## Deployment Workflow
+
+1.  **Build Docker Image**: The shell is built in "Library Mode" (Vite). The `dist/` folder is wrapped in an Nginx container.
+2.  **Deploy Service**: Apply standard Kubernetes Deployment and Service manifests for the pod.
+3.  **Apply MicroFrontend**: Apply the CRD. The Polyfea Controller will detect it, update the specific Import Map, and begin serving assets.
+4.  **Configuration**: Apply `WebComponent` CRDs to construct the UI layout structure defined above.

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file target-language="sk" source-language="en" original="lit-localize-inputs" datatype="plaintext">
+    <body>
+      <trans-unit id="polyfea.change-language-label">
+        <source><source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+        </source>
+        <target state="">Zmeniť jazyk, teraz <x id="0" equiv-text="${langName}"/></target>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+      </trans-unit>
+      <trans-unit id="polyfea.switch-to-light-theme">
+        <source>Switch to Light mode</source>
+        <target state="">Prepnúť do svetlej témy</target>
+      </trans-unit>
+      <trans-unit id="polyfea.switch-to-dark-theme">
+        <source>Switch to Dark mode</source>
+        <target state="">Prepnúť do tmavej témy</target>
+      </trans-unit>
+      <trans-unit id="polyfea.increase-text-size">
+        <source>Increase text size</source>
+        <target state="">Zväčšiť veľkosť textu</target>
+      </trans-unit>
+      <trans-unit id="polyfea.decrease-text-size">
+        <source>Decrease text size</source>
+        <target state="">Zmenšiť veľkosť textu</target>
+      </trans-unit>
+      <trans-unit id="polyfea.reset-text-size">
+        <source>Reset text size</source>
+        <target state="">Obnoviť veľkosť textu</target>
+      </trans-unit>
+      <trans-unit id="polyfea.navigate-back">
+        <source>back</source>
+        <target state="">Späť</target>
+      </trans-unit>
+      <trans-unit id="polyfea.open-drawer">
+        <source>open drawer</source>
+        <target state="">Otvoriť bočný panel</target>
+      </trans-unit>
+      <trans-unit id="polyfea.more-actions">
+        <source>more actions</source>
+        <target state="">Viac akcií</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

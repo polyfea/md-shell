@@ -17,9 +17,21 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 21
-      - run: npm ci
+      - run: npm ci    
+      - name: run tests ✅
+        run: npm run coverage.ci
       - run: npm run build 
-      - run: npm test
+        name: build package 🔧
+
+      - name: build storybook 🔧
+        run: npm run build:storybook
+
+      - name: Deploy storybook 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: storybook-static 
+          branch: gh-pages
+
   publish_npm_package:
     if: github.event_name == 'release'
     needs: build

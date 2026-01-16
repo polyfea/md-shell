@@ -1,7 +1,0 @@
-:host {
-  display: block;
-  font: var(--md-sys-typescale-title-medium-font,  0.85rem / 1.25rem 'Roboto');
-  letter-spacing: var(--md-sys-typescale-title-medium-letter-spacing, 0.00625rem);
-  padding-left: 1.25rem;
-  color: var(--md-sys-color-on-surface-variant);
-}
