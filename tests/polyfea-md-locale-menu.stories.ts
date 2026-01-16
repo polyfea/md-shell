@@ -7,6 +7,7 @@ import '../src/polyfea-md-locale-menu';
 import { type Theme } from '../src/polyfea-md-theme-control';
 import { expect, fn, waitFor } from 'storybook/test';
 import { PolyfeaMdLocaleMenu } from '../src/polyfea-md-locale-menu';
+import { LocalizationRegistry } from '../src/localization';
 
 // Define the interface for the component's properties for better type safety in Storybook
 interface LocaleMenuProps {
@@ -118,10 +119,10 @@ play: async ({ canvasElement, step, args }) => {
 
     });
 
-    await step('Test resolution of locales') {
-      const resolved = LocalizationRegistry.resolveLocale('de-DE', ['en', 'de', 'fr']);
+    await step('Test resolution of locales', async () => {
+      const resolved = LocalizationRegistry.resolveSupportedLocale(['de-DE'], new Set(['en', 'de', 'fr']));
       await expect(resolved).toBe('de');
-    }
+    });
 
 
 }
