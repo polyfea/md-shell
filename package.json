@@ -56,7 +56,6 @@
     "lit": "^3.3.2"
   },
   "devDependencies": {
-    "@chromatic-com/storybook": "^5.0.0",
     "@custom-elements-manifest/analyzer": "^0.11.0",
     "@custom-elements-manifest/to-markdown": "^0.1.0",
     "@lit/localize-tools": "^0.8.1",
