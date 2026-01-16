@@ -118,6 +118,11 @@ play: async ({ canvasElement, step, args }) => {
 
     });
 
+    await step('Test resolution of locales') {
+      const resolved = LocalizationRegistry.resolveLocale('de-DE', ['en', 'de', 'fr']);
+      await expect(resolved).toBe('de');
+    }
+
 
 }
 };
