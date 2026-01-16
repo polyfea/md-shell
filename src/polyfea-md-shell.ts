@@ -8,6 +8,7 @@ import { PolyfeaMdThemeControl, type Theme } from './polyfea-md-theme-control.js
 import { provide } from '@lit/context';
 import { localeLoadersContext, LocalizationRegistry, type LoadLocaleEvent } from './localization';
 import { targetLocales } from './generated/locale-codes';
+import { loc } from "./localization";
 
 /**
  * A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.
@@ -42,6 +43,11 @@ export class PolyfeaMdShell extends LitElement {
    * if the `app-shell-title` context area is empty.
    */
   @property({ attribute: 'application-headline' }) applicationHeadline: string = 'Polyfea Shell';
+
+  /**
+   *  The localization ID for the application headline. Used with `lit-localize`
+   */
+  @property({ attribute: 'application-headline-localized-id' }) applicationHeadlineLocalizedId: string = '';
 
   /**
    * If set to true, the menu button on the right side of the top bar will be hidden.
@@ -411,7 +417,7 @@ export class PolyfeaMdShell extends LitElement {
   #renderTopBar() {
     const showTopbarDrawerIcon = this.#railDisabled && !this.#drawerDisabled && !this._drawerOpen;
     return html` <topbar class=${this._scrolled ? 'scrolled' : ''} ?more-actions-disabled=${this.topbarMoreDisabled} ?scrolled=${this._scrolled}>
-      <polyfea-md-topbar headline=${this.applicationHeadline} leading-icon=${showTopbarDrawerIcon ? 'drawer' : 'none'} variant=${this.topbarVariant}>
+      <polyfea-md-topbar headline=${loc(this.applicationHeadline, this.applicationHeadlineLocalizedId)} leading-icon=${showTopbarDrawerIcon ? 'drawer' : 'none'} variant=${this.topbarVariant}>
         <polyfea-context name="topbar-leading-icon" take="1">
           <slot slot="leading" name="topbar-leading"></slot>
         </polyfea-context>
