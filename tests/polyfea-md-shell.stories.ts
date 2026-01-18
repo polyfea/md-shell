@@ -625,7 +625,7 @@ export const Drawer: Story = {
         shell.shadowRoot!
       ) as HTMLElement;
       await expect(open).toBeInTheDocument();
-      withinShadow(open).getByShadowRole("button").click();
+      await withinShadow(open).getByShadowRole("button").click();
     });
 
       await waitFor(async () => {
@@ -638,7 +638,7 @@ export const Drawer: Story = {
         shell.shadowRoot!
       ) as HTMLElement;
       await expect(close).toBeInTheDocument();
-      withinShadow(close).getByShadowRole("button").click();
+      await withinShadow(close).getByShadowRole("button").click();
 
       await waitFor(async () => {
         await expect(drawer).not.toHaveAttribute("open");
