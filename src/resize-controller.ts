@@ -14,7 +14,7 @@ export class ResizeController implements ReactiveController {
   #mediaSize: "small" | "medium" | "large" | undefined;
   get mediaSize() {
     this.#updateMediaSize();
-    return this.#mediaSize;
+    return this.#mediaSize || "medium";
   }
 
   #smallBreakpointRem: number;
@@ -55,7 +55,8 @@ export class ResizeController implements ReactiveController {
   #updateMediaSize(force: boolean = false) {
     if (force || this.#mediaSize === undefined) {
       if (!this.contentRect?.width) {
-        this.contentRect = this.host.getBoundingClientRect();
+        this.#mediaSize = undefined;
+        return;
       }
 
       const rootStyle = getComputedStyle(document.documentElement);
