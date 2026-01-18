@@ -656,9 +656,9 @@ export const Drawer: Story = {
     await step("Close by clicking on drawer", async () => {
       const drawer = deepQuerySelector("drawer", shell.shadowRoot!) as HTMLElement;
       await expect(drawer).toBeInTheDocument();
+      const page = deepQuerySelector("page", shell.shadowRoot!) as HTMLElement;
+      await expect(page).toHaveAttribute("size", "medium");
       drawer.dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true }));
-
-      
       await waitFor(async () => {
         await expect(drawer).not.toHaveAttribute("open");
       }, { timeout: 3000 });
