@@ -9,4 +9,4 @@ export * from './polyfea-md-shell';
 export * from './polyfea-md-theme-control';
 export * from './polyfea-md-topbar';
 export * from './resize-controller';
-export { registerLocaleModule, setLocale, loc, type LoadLocaleEvent, type LocalesLoaderRegistry, type LoaderFn, type LocaleTemplates, } from './localization';
+export { registerLocaleModule, setLocale, getLocale, loc, type LoaderFn, type LocaleTemplates, } from './localization';

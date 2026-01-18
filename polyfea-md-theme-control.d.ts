@@ -4,13 +4,12 @@ export type Theme = {
     isDark: boolean;
     scale?: number;
     followSystemTheme: boolean;
-    locale?: string;
 };
 /**
  * A control component to toggle between light and dark themes or adjust font sizes.
  * It can be rendered as an icon button, a menu item, or a hidden preset loader.
  *
- * @fires theme-changed - Fired when the theme is changed by the user.
+ * @fires polyfea-theme-changed - Fired when the theme is changed by the user.
  */
 export declare class PolyfeaMdThemeControl extends LitElement {
     #private;
@@ -27,6 +26,8 @@ export declare class PolyfeaMdThemeControl extends LitElement {
      */
     control: 'theme-toggle' | 'text-increase' | 'text-decrease' | 'reset-font';
     private _theme;
+    static THEME_CHANGED_EVENT: string;
+    private static _THEME_STORAGE_KEY;
     constructor();
     connectedCallback(): void;
     disconnectedCallback(): void;

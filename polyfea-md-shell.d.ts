@@ -1,5 +1,4 @@
 import { LitElement } from 'lit';
-import { LocalizationRegistry } from './localization';
 /**
  * A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.
  * It provides slots to customize these areas and context areas for dynamic content injection using polyfea-context. Embedded is a style element with Material Design tokens for colors, typography, and shapes.
@@ -90,10 +89,10 @@ export declare class PolyfeaMdShell extends LitElement {
     locales: string[];
     /** If set to true, a locale selection menu will be displayed in more action menu*/
     localeMenu: boolean;
+    /** If set to true, the shell will be positioned absolutely with top, right, bottom, and left set to 0. */
+    absolutePosition: boolean;
     private _drawerOpen;
     private _scrolled;
-    /** Provides localization context to child components. */
-    _localeRegistry: LocalizationRegistry;
     /** Initializes component state, loads themes/locales, and attaches global event listeners. */
     connectedCallback(): void;
     /** Cleans up global event listeners to prevent memory leaks. */
