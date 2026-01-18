@@ -1,15 +1,16 @@
 import { LitElement, html, nothing, unsafeCSS } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import {  property, state } from 'lit/decorators.js';
 import styles from './polyfea-md-shell.css?inline';
 import grid from './polyfea-md-shell-grid.css?inline';
 import { ResizeController } from './resize-controller.js';
 import { argbFromHex, TonalPalette, Scheme, hexFromArgb, Hct } from '@materialx/material-color-utilities';
 import { PolyfeaMdThemeControl, type Theme } from './polyfea-md-theme-control.js';
-import { provide } from '@lit/context';
-import { localeLoadersContext, LocalizationRegistry, type LoadLocaleEvent } from './localization';
+
+import { loadLocale, LocalizationRegistry } from './localization';
 import { targetLocales } from './generated/locale-codes';
 import { loc } from "./localization";
 
+import { customElementSafe } from './custom-element-safe.js';
 /**
  * A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.
  * It provides slots to customize these areas and context areas for dynamic content injection using polyfea-context. Embedded is a style element with Material Design tokens for colors, typography, and shapes.
@@ -34,7 +35,7 @@ import { loc } from "./localization";
  * @cssparts rail - The navigation rail.
  * @cssparts drawer - The navigation drawer.
  */
-@customElement('polyfea-md-shell')
+@customElementSafe('polyfea-md-shell')
 export class PolyfeaMdShell extends LitElement {
   static styles = [unsafeCSS(grid), unsafeCSS(styles)];
 
@@ -121,15 +122,18 @@ export class PolyfeaMdShell extends LitElement {
   /** If set to true, a locale selection menu will be displayed in more action menu*/
   @property({ type: Boolean, attribute: 'locale-menu' }) localeMenu: boolean = false;
 
+  /** If set to true, the shell will be positioned absolutely with top, right, bottom, and left set to 0. */
+  @property({ type: Boolean, attribute: 'absolute-position' }) absolutePosition: boolean = false;
+
   @state() private _drawerOpen: boolean = true;
   @state() private _scrolled: boolean = false;
 
   /** Provides localization context to child components. */
-  @provide({ context: localeLoadersContext })
-  _localeRegistry = new LocalizationRegistry();
+  #localeRegistry = new LocalizationRegistry();
 
   #resizeController = new ResizeController(this);
   #currentTheme: Theme | null = null;
+
 
   /** Initializes component state, loads themes/locales, and attaches global event listeners. */
   connectedCallback() {
@@ -138,27 +142,26 @@ export class PolyfeaMdShell extends LitElement {
     const drawerClosed = localStorage.getItem('drawerOpen');
     this._drawerOpen = drawerClosed === 'true';
     this.#currentTheme = PolyfeaMdThemeControl.loadTheme();
+    this.#localeRegistry.configureLocalization(this.locales?.length ? this.locales : [...targetLocales], this.localesPath);
 
-    this._localeRegistry.configureLocalization(this.locales?.length ? this.locales : [...targetLocales], this.localesPath);
-    this.addEventListener('drawer-closed', this.#drawerClosedHandler.bind(this));
-    this.addEventListener('drawer-opened', this.#drawerOpenedHandler.bind(this));
-    this.addEventListener('theme-changed', this.#onThemeChanged.bind(this));
-    this.addEventListener('register-locale-module', this.#onRegisterLocaleModule.bind(this) as EventListener);
     const query = window.matchMedia('(prefers-color-scheme: dark)');
     query.addEventListener('change', this.#onThemeChanged.bind(this));
-    window.addEventListener('register-locale-module', this.#onRegisterLocaleModule.bind(this) as EventListener);
-    window.addEventListener('theme-changed', this.#onThemeChanged.bind(this) as EventListener);
-    this._localeRegistry.setLocale(this.#currentTheme?.locale || '');
+    window.addEventListener(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, this.#onThemeChanged.bind(this) as EventListener);  
+
+    this.addEventListener('drawer-closed', this.#drawerClosedHandler.bind(this));
+    this.addEventListener('drawer-opened', this.#drawerOpenedHandler.bind(this));
+    
+    loadLocale();
   }
 
   /** Cleans up global event listeners to prevent memory leaks. */
   disconnectedCallback() {
     this.removeEventListener('drawer-closed', this.#drawerClosedHandler.bind(this));
     this.removeEventListener('drawer-opened', this.#drawerOpenedHandler.bind(this));
-    this.removeEventListener('theme-changed', this.#onThemeChanged.bind(this));
-    this.removeEventListener('register-locale-module', this.#onRegisterLocaleModule.bind(this) as EventListener);
-    window.removeEventListener('register-locale-module', this.#onRegisterLocaleModule.bind(this) as EventListener);
-    window.removeEventListener('theme-changed', this.#onThemeChanged.bind(this) as EventListener);
+    this.removeEventListener(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, this.#onThemeChanged.bind(this));
+    window.removeEventListener(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, this.#onThemeChanged.bind(this) as EventListener);
+    
+  
     super.disconnectedCallback();
   }
 
@@ -190,29 +193,26 @@ export class PolyfeaMdShell extends LitElement {
     `;
   }
 
-  #onRegisterLocaleModule(e: LoadLocaleEvent) {
-    this._localeRegistry.registerLocaleLoader(e.detail.module, e.detail.locales, e.detail.loader);
-  }
+
   #onThemeChanged(e: Event) {
     if (e instanceof MediaQueryListEvent) {
       //media query event
-      const theme = PolyfeaMdThemeControl.loadTheme();
+      const theme =  PolyfeaMdThemeControl.loadTheme();
       if (theme.followSystemTheme) {
         theme.isDark = e.matches;
-        e = new CustomEvent<Theme>('theme-changed', { detail: theme });
+        e = new CustomEvent<Theme>(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, { detail: theme });
       } else {
         return; // ignore as user preference has priority
       }
     }
     const event = e as CustomEvent<Theme>;
-    if (event.detail.locale && event.detail.locale !== this.#currentTheme?.locale) {
-      this._localeRegistry.setLocale(event.detail.locale || '');
-    }
+    
     if (event.detail.isDark !== this.#currentTheme?.isDark || event.detail.scale !== this.#currentTheme?.scale) {
       this.requestUpdate();
     }
     this.#currentTheme = event.detail;
   }
+  
 
   #drawerClosedHandler() {
     this.#openDrawer(false);
@@ -298,6 +298,7 @@ export class PolyfeaMdShell extends LitElement {
       const color = hexFromArgb(value);
       tokens += `--md-sys-color-${token}: ${color};\n`;
     }
+    tokens += `--md-sys-color-scrim-background: color-mix(in srgb, var(--md-sys-color-scrim, #eee) 32%, transparent );\n`;
     return tokens;
   }
 
@@ -470,7 +471,7 @@ export class PolyfeaMdShell extends LitElement {
     }
     return html`
       <rail>
-        <polyfea-md-rail ?drawerDisabled=${this.drawerDisabled}>
+        <polyfea-md-rail ?drawer-disabled=${this.drawerDisabled}>
           <polyfea-context name="rail-primary-action" take="1">
             <slot name="primary-action" slot="primary-action"></slot>
           </polyfea-context>

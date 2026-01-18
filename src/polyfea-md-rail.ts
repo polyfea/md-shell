@@ -1,13 +1,10 @@
 import { msg } from '@lit/localize';
 import { LitElement, html, css } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import { customElementSafe, importMdIconButtonSafely, importMdIconSafely } from './custom-element-safe';
 
-if (!globalThis.customElements.get('md-icon-button')) {
-  import('@material/web/iconbutton/icon-button.js');
-}
-if (!globalThis.customElements.get('md-icon')) {
-  import('@material/web/icon/icon.js');
-}
+importMdIconButtonSafely();
+importMdIconSafely();
 
 /**
  * A navigation rail component, typically used on the side of the screen on medium to large devices.
@@ -19,7 +16,7 @@ if (!globalThis.customElements.get('md-icon')) {
  * 
  * @fires drawer-opened - Raised when the drawer open icon is clicked indicating the user want to open the drawer.
  */
-@customElement('polyfea-md-rail')
+@customElementSafe('polyfea-md-rail')
 export class PolyfeaMdRail extends LitElement {
   
   /** The rail show drawer open icon by default. Set this property to true to hide it */

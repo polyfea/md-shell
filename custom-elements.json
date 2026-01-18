@@ -4,12 +4,306 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "src/custom-element-safe.ts",
+      "declarations": [
+        {
+          "kind": "function",
+          "name": "customElementSafe",
+          "parameters": [
+            {
+              "name": "tagName",
+              "type": {
+                "text": "string"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "importElementModuleSafely",
+          "parameters": [
+            {
+              "name": "tagName",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "name": "importFn",
+              "type": {
+                "text": "() => Promise<any>"
+              }
+            }
+          ]
+        },
+        {
+          "kind": "function",
+          "name": "importMdMenuSafely"
+        },
+        {
+          "kind": "function",
+          "name": "importMdMenuItemSafely"
+        },
+        {
+          "kind": "function",
+          "name": "importMdIconSafely"
+        },
+        {
+          "kind": "function",
+          "name": "importMdIconButtonSafely"
+        },
+        {
+          "kind": "function",
+          "name": "importMdRippleSafely"
+        },
+        {
+          "kind": "function",
+          "name": "importMdElevationSafely"
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "customElementSafe",
+          "declaration": {
+            "name": "customElementSafe",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tagName",
+          "declaration": {
+            "name": "classConstructor",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importElementModuleSafely",
+          "declaration": {
+            "name": "importElementModuleSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdMenuSafely",
+          "declaration": {
+            "name": "importMdMenuSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdMenuItemSafely",
+          "declaration": {
+            "name": "importMdMenuItemSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdIconSafely",
+          "declaration": {
+            "name": "importMdIconSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdIconButtonSafely",
+          "declaration": {
+            "name": "importMdIconButtonSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdRippleSafely",
+          "declaration": {
+            "name": "importMdRippleSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "importMdElevationSafely",
+          "declaration": {
+            "name": "importMdElevationSafely",
+            "module": "src/custom-element-safe.ts"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/elements.ts",
+      "declarations": [],
+      "exports": []
+    },
+    {
+      "kind": "javascript-module",
+      "path": "src/index.ts",
+      "declarations": [],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-app"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-apps"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-drawer"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-drawer-label"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-locale-menu"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-navigation-bar"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-rail"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-shell"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-theme-control"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/polyfea-md-topbar"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "*",
+          "declaration": {
+            "name": "*",
+            "module": "src/resize-controller"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "registerLocaleModule",
+          "declaration": {
+            "name": "registerLocaleModule",
+            "module": "./localization"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setLocale",
+          "declaration": {
+            "name": "setLocale",
+            "module": "./localization"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getLocale",
+          "declaration": {
+            "name": "getLocale",
+            "module": "./localization"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "loc",
+          "declaration": {
+            "name": "loc",
+            "module": "./localization"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LoaderFn",
+          "declaration": {
+            "name": "LoaderFn",
+            "module": "./localization"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "LocaleTemplates",
+          "declaration": {
+            "name": "LocaleTemplates",
+            "module": "./localization"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "src/localization.ts",
       "declarations": [
         {
           "kind": "variable",
-          "name": "localeLoadersContext",
-          "description": "context to register module locale loaders"
+          "name": "LOCALE_STORAGE_KEY",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"@polyfea/user-locale\""
+        },
+        {
+          "kind": "variable",
+          "name": "REGISTER_LOCALE_EVENT",
+          "type": {
+            "text": "string"
+          },
+          "default": "\"register-locale-module\""
         },
         {
           "kind": "function",
@@ -29,14 +323,83 @@
               }
             }
           ]
+        },
+        {
+          "kind": "function",
+          "name": "registerLocaleModule",
+          "parameters": [
+            {
+              "name": "module",
+              "type": {
+                "text": "string"
+              },
+              "description": "scoped module name (e.g. '@my-org/my-module')"
+            },
+            {
+              "name": "locales",
+              "type": {
+                "text": "string[]"
+              },
+              "description": "array of locale codes that the loader can provide"
+            },
+            {
+              "name": "loader",
+              "type": {
+                "text": "LoaderFn"
+              },
+              "description": "function that loads the locale module dynamically"
+            }
+          ],
+          "description": "Registers a locale module with its available locales and loader function. Assumes <polyfea-md-shell> or other\ncontroller of LocalesLoaderRegistry is already instantiated and listening to the event"
+        },
+        {
+          "kind": "function",
+          "name": "setLocale",
+          "parameters": [
+            {
+              "name": "locale",
+              "type": {
+                "text": "string"
+              },
+              "description": "locale code to set"
+            }
+          ],
+          "description": "Sets the active locale by dispatching a 'theme-changed' event."
+        },
+        {
+          "kind": "function",
+          "name": "loadLocale",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          },
+          "description": "Retrieves the active locale from local storage or sets it to browser preferred locale if not set"
+        },
+        {
+          "kind": "function",
+          "name": "getLocale",
+          "return": {
+            "type": {
+              "text": "string"
+            }
+          }
         }
       ],
       "exports": [
         {
           "kind": "js",
-          "name": "localeLoadersContext",
+          "name": "LOCALE_STORAGE_KEY",
           "declaration": {
-            "name": "localeLoadersContext",
+            "name": "LOCALE_STORAGE_KEY",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "REGISTER_LOCALE_EVENT",
+          "declaration": {
+            "name": "REGISTER_LOCALE_EVENT",
             "module": "src/localization.ts"
           }
         },
@@ -45,6 +408,38 @@
           "name": "loc",
           "declaration": {
             "name": "loc",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "registerLocaleModule",
+          "declaration": {
+            "name": "registerLocaleModule",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "setLocale",
+          "declaration": {
+            "name": "setLocale",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "loadLocale",
+          "declaration": {
+            "name": "loadLocale",
+            "module": "src/localization.ts"
+          }
+        },
+        {
+          "kind": "js",
+          "name": "getLocale",
+          "declaration": {
+            "name": "getLocale",
             "module": "src/localization.ts"
           }
         }
@@ -369,7 +764,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-app",
           "customElement": true
         }
       ],
@@ -377,14 +771,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdApp",
-          "declaration": {
-            "name": "PolyfeaMdApp",
-            "module": "src/polyfea-md-app.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-app",
           "declaration": {
             "name": "PolyfeaMdApp",
             "module": "src/polyfea-md-app.ts"
@@ -433,7 +819,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-apps",
           "customElement": true
         }
       ],
@@ -441,14 +826,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdApps",
-          "declaration": {
-            "name": "PolyfeaMdApps",
-            "module": "src/polyfea-md-apps.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-apps",
           "declaration": {
             "name": "PolyfeaMdApps",
             "module": "src/polyfea-md-apps.ts"
@@ -480,6 +857,16 @@
               "default": "''",
               "description": "The headline of the label. May be empty if slot is used",
               "attribute": "headline"
+            },
+            {
+              "kind": "field",
+              "name": "headlineLocalizedId",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The localization ID for the headline. Used with `lit-localize`",
+              "attribute": "headline-localized-id"
             }
           ],
           "attributes": [
@@ -491,13 +878,21 @@
               "default": "''",
               "description": "The headline of the label. May be empty if slot is used",
               "fieldName": "headline"
+            },
+            {
+              "name": "headline-localized-id",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The localization ID for the headline. Used with `lit-localize`",
+              "fieldName": "headlineLocalizedId"
             }
           ],
           "superclass": {
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-drawer-label",
           "customElement": true
         }
       ],
@@ -505,14 +900,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdDrawerLabel",
-          "declaration": {
-            "name": "PolyfeaMdDrawerLabel",
-            "module": "src/polyfea-md-drawer-label.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-drawer-label",
           "declaration": {
             "name": "PolyfeaMdDrawerLabel",
             "module": "src/polyfea-md-drawer-label.ts"
@@ -570,7 +957,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-drawer",
           "customElement": true
         }
       ],
@@ -578,14 +964,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdDrawer",
-          "declaration": {
-            "name": "PolyfeaMdDrawer",
-            "module": "src/polyfea-md-drawer.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-drawer",
           "declaration": {
             "name": "PolyfeaMdDrawer",
             "module": "src/polyfea-md-drawer.ts"
@@ -608,20 +986,9 @@
               "type": {
                 "text": "string[]"
               },
-              "default": "['en']",
+              "default": "[\"en\"]",
               "description": "list of supported locales",
               "attribute": "locales"
-            },
-            {
-              "kind": "field",
-              "name": "currentLocale",
-              "type": {
-                "text": "string"
-              },
-              "default": "'en'",
-              "description": "current selected locale",
-              "attribute": "current-locale",
-              "reflects": true
             },
             {
               "kind": "field",
@@ -629,17 +996,9 @@
               "type": {
                 "text": "string"
               },
-              "default": "'./assets/flag-icons/css/flag-icons.min.css'",
+              "default": "\"./assets/flag-icons/css/flag-icons.min.css\"",
               "description": "Path to the flag-icons CSS file",
               "attribute": "flag-icons-path"
-            }
-          ],
-          "events": [
-            {
-              "name": "theme-changed",
-              "type": {
-                "text": "CustomEvent"
-              }
             }
           ],
           "attributes": [
@@ -648,25 +1007,16 @@
               "type": {
                 "text": "string[]"
               },
-              "default": "['en']",
+              "default": "[\"en\"]",
               "description": "list of supported locales",
               "fieldName": "locales"
-            },
-            {
-              "name": "current-locale",
-              "type": {
-                "text": "string"
-              },
-              "default": "'en'",
-              "description": "current selected locale",
-              "fieldName": "currentLocale"
             },
             {
               "name": "flag-icons-path",
               "type": {
                 "text": "string"
               },
-              "default": "'./assets/flag-icons/css/flag-icons.min.css'",
+              "default": "\"./assets/flag-icons/css/flag-icons.min.css\"",
               "description": "Path to the flag-icons CSS file",
               "fieldName": "flagIconsPath"
             }
@@ -675,7 +1025,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-locale-menu",
           "customElement": true
         }
       ],
@@ -683,14 +1032,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdLocaleMenu",
-          "declaration": {
-            "name": "PolyfeaMdLocaleMenu",
-            "module": "src/polyfea-md-locale-menu.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-locale-menu",
           "declaration": {
             "name": "PolyfeaMdLocaleMenu",
             "module": "src/polyfea-md-locale-menu.ts"
@@ -717,7 +1058,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-navigation-bar",
           "customElement": true
         }
       ],
@@ -725,14 +1065,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdNavigationBar",
-          "declaration": {
-            "name": "PolyfeaMdNavigationBar",
-            "module": "src/polyfea-md-navigation-bar.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-navigation-bar",
           "declaration": {
             "name": "PolyfeaMdNavigationBar",
             "module": "src/polyfea-md-navigation-bar.ts"
@@ -813,7 +1145,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-rail",
           "customElement": true
         }
       ],
@@ -821,14 +1152,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdRail",
-          "declaration": {
-            "name": "PolyfeaMdRail",
-            "module": "src/polyfea-md-rail.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-rail",
           "declaration": {
             "name": "PolyfeaMdRail",
             "module": "src/polyfea-md-rail.ts"
@@ -906,6 +1229,16 @@
               "default": "'Polyfea Shell'",
               "description": "The name of the application displayed in the top bar. This is only shown\nif the `app-shell-title` context area is empty.",
               "attribute": "application-headline"
+            },
+            {
+              "kind": "field",
+              "name": "applicationHeadlineLocalizedId",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The localization ID for the application headline. Used with `lit-localize`",
+              "attribute": "application-headline-localized-id"
             },
             {
               "kind": "field",
@@ -1033,8 +1366,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"'Roboto Slab', serif\"",
-              "description": "theme brand font family",
+              "default": "\"\"",
+              "description": "theme brand font family (implicit 'Roboto Slab Variable', 'Roboto Slab', serif)",
               "attribute": "theme-brand-font"
             },
             {
@@ -1043,9 +1376,19 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"'Roboto Flex', Roboto, sans-serif\"",
-              "description": "theme plain font family",
+              "default": "\"\"",
+              "description": "theme plain font family (implicit 'Roboto Flex Variable', 'Roboto Flex', Roboto, sans-serif)",
               "attribute": "theme-plain-font"
+            },
+            {
+              "kind": "field",
+              "name": "themeIconFont",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "theme icon font family (implicit 'Material Symbols Outlined Variable', 'Material Symbols Outlined')",
+              "attribute": "theme-icon-font"
             },
             {
               "kind": "field",
@@ -1107,6 +1450,15 @@
               "default": "'Polyfea Shell'",
               "description": "The name of the application displayed in the top bar. This is only shown\nif the `app-shell-title` context area is empty.",
               "fieldName": "applicationHeadline"
+            },
+            {
+              "name": "application-headline-localized-id",
+              "type": {
+                "text": "string"
+              },
+              "default": "''",
+              "description": "The localization ID for the application headline. Used with `lit-localize`",
+              "fieldName": "applicationHeadlineLocalizedId"
             },
             {
               "name": "topbar-more-disabled",
@@ -1221,8 +1573,8 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"'Roboto Slab', serif\"",
-              "description": "theme brand font family",
+              "default": "\"\"",
+              "description": "theme brand font family (implicit 'Roboto Slab Variable', 'Roboto Slab', serif)",
               "fieldName": "themeBrandFont"
             },
             {
@@ -1230,9 +1582,18 @@
               "type": {
                 "text": "string"
               },
-              "default": "\"'Roboto Flex', Roboto, sans-serif\"",
-              "description": "theme plain font family",
+              "default": "\"\"",
+              "description": "theme plain font family (implicit 'Roboto Flex Variable', 'Roboto Flex', Roboto, sans-serif)",
               "fieldName": "themePlainFont"
+            },
+            {
+              "name": "theme-icon-font",
+              "type": {
+                "text": "string"
+              },
+              "default": "\"\"",
+              "description": "theme icon font family (implicit 'Material Symbols Outlined Variable', 'Material Symbols Outlined')",
+              "fieldName": "themeIconFont"
             },
             {
               "name": "theme-scale-multiplier",
@@ -1284,7 +1645,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-shell",
           "customElement": true
         }
       ],
@@ -1292,14 +1652,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdShell",
-          "declaration": {
-            "name": "PolyfeaMdShell",
-            "module": "src/polyfea-md-shell.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-shell",
           "declaration": {
             "name": "PolyfeaMdShell",
             "module": "src/polyfea-md-shell.ts"
@@ -1337,6 +1689,15 @@
               "attribute": "control"
             },
             {
+              "kind": "field",
+              "name": "THEME_CHANGED_EVENT",
+              "type": {
+                "text": "string"
+              },
+              "static": true,
+              "default": "'polyfea-theme-changed'"
+            },
+            {
               "kind": "method",
               "name": "loadTheme",
               "static": true,
@@ -1349,11 +1710,13 @@
           ],
           "events": [
             {
-              "name": "theme-changed",
               "type": {
                 "text": "CustomEvent"
-              },
-              "description": "Fired when the theme is changed by the user."
+              }
+            },
+            {
+              "description": "Fired when the theme is changed by the user.",
+              "name": "polyfea-theme-changed"
             }
           ],
           "attributes": [
@@ -1380,7 +1743,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-theme-control",
           "customElement": true
         }
       ],
@@ -1388,14 +1750,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdThemeControl",
-          "declaration": {
-            "name": "PolyfeaMdThemeControl",
-            "module": "src/polyfea-md-theme-control.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-theme-control",
           "declaration": {
             "name": "PolyfeaMdThemeControl",
             "module": "src/polyfea-md-theme-control.ts"
@@ -1529,7 +1883,6 @@
             "name": "LitElement",
             "package": "lit"
           },
-          "tagName": "polyfea-md-topbar",
           "customElement": true
         }
       ],
@@ -1537,14 +1890,6 @@
         {
           "kind": "js",
           "name": "PolyfeaMdTopbar",
-          "declaration": {
-            "name": "PolyfeaMdTopbar",
-            "module": "src/polyfea-md-topbar.ts"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "polyfea-md-topbar",
           "declaration": {
             "name": "PolyfeaMdTopbar",
             "module": "src/polyfea-md-topbar.ts"

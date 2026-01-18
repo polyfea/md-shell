@@ -39,24 +39,9 @@ const config: StorybookConfig = {
       to: '/assets/fonts.css'
     }
   ],
-  async viteFinal(config) {
+  async viteFinal(config, { configType }) {
     return mergeConfig(config, {
-      plugins: [
-        {
-          name: 'custom-mime-type-middleware',
-          configureServer(server: ViteDevServer) {
-            
-            server.middlewares.use((req, res, next) => {
-              
-              if (req.url === '/polyfea/static-config.json') {
-                res.setHeader('Content-Type', 'application/json; charset=utf-8');
-              }
-              
-              next();
-            });
-          },
-        },
-      ],
+      base: (configType === 'PRODUCTION'  && (globalThis as any).process?.env?.NODE_ENV !== 'test'? '/md-shell/' : '/'),
     });
   },
 };

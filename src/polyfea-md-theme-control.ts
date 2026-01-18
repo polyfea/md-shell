@@ -1,32 +1,27 @@
 import { LitElement, html, css } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 import { msg, updateWhenLocaleChanges } from '@lit/localize';
+import { customElementSafe, importMdIconButtonSafely, importMdIconSafely, importMdMenuItemSafely } from './custom-element-safe';
 
-if (!globalThis.customElements.get('md-icon-button')) {
-  import('@material/web/iconbutton/icon-button.js');
-}
-if (!globalThis.customElements.get('md-icon')) {
-  import('@material/web/icon/icon.js');
-}
-if (!globalThis.customElements.get('md-menu-item')) {
-  import('@material/web/menu/menu-item.js');
-}
+
+importMdIconButtonSafely();
+importMdIconSafely();
+importMdMenuItemSafely();
 
 export type ThemeMode = 'light' | 'dark';
 export type Theme = {
   isDark: boolean;
   scale?: number;
   followSystemTheme: boolean;
-  locale?: string;
 };
 
 /**
  * A control component to toggle between light and dark themes or adjust font sizes.
  * It can be rendered as an icon button, a menu item, or a hidden preset loader.
  *
- * @fires theme-changed - Fired when the theme is changed by the user.
+ * @fires polyfea-theme-changed - Fired when the theme is changed by the user.
  */
-@customElement('polyfea-md-theme-control')
+@customElementSafe('polyfea-md-theme-control')
 export class PolyfeaMdThemeControl extends LitElement {
   /**
    * This property controls the display variant of the theme control. It can be used to render the control
@@ -44,6 +39,10 @@ export class PolyfeaMdThemeControl extends LitElement {
 
   @state() private _theme: Theme = { isDark: false, scale: 1.0, followSystemTheme: true};
 
+
+  static THEME_CHANGED_EVENT = 'polyfea-theme-changed';
+  private static _THEME_STORAGE_KEY = '@polyfea/theme';
+
   constructor() {
     super();
     updateWhenLocaleChanges(this);
@@ -53,21 +52,23 @@ export class PolyfeaMdThemeControl extends LitElement {
     super.connectedCallback();
     this._theme = PolyfeaMdThemeControl.loadTheme();
     // Listen for changes from other controls
-    window.addEventListener('theme-changed', this.#handleThemeChanged.bind(this));
+    window.addEventListener(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, this.#handleThemeChanged.bind(this));
   }
 
   disconnectedCallback() {
-    window.removeEventListener('theme-changed', this.#handleThemeChanged.bind(this));
+    window.removeEventListener(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, this.#handleThemeChanged.bind(this));
     
     super.disconnectedCallback();
   }
 
   #handleThemeChanged(event: Event) {
     const customEvent = event as CustomEvent<Theme>;
-    if (this._theme.isDark !== customEvent.detail.isDark || this._theme.scale !== customEvent.detail.scale) {
+
+    if (this._theme.isDark !== customEvent.detail?.isDark || this._theme.scale !== (customEvent.detail?.scale || 1.0)) {
       this._theme = { ...customEvent.detail };
     }
   }
+  
 
   render() {
     let icon = '';
@@ -113,7 +114,7 @@ export class PolyfeaMdThemeControl extends LitElement {
 
   static loadTheme(): Theme {
     try {
-      const stored = localStorage.getItem('theme');
+      const stored = localStorage.getItem(PolyfeaMdThemeControl._THEME_STORAGE_KEY);
       if (stored) {
         let theme =  JSON.parse(stored);
         if ((theme.followSystemTheme  || theme.followSystemTheme === undefined) && window.matchMedia) {
@@ -152,10 +153,10 @@ export class PolyfeaMdThemeControl extends LitElement {
     }
 
     if (this._theme.isDark != theme.isDark || this._theme.scale != theme.scale) {
-      localStorage.setItem('theme', JSON.stringify(theme));
+      localStorage.setItem(PolyfeaMdThemeControl._THEME_STORAGE_KEY, JSON.stringify(theme));
       this._theme = theme;
       this.dispatchEvent(
-        new CustomEvent<Theme>('theme-changed', {
+        new CustomEvent<Theme>(PolyfeaMdThemeControl.THEME_CHANGED_EVENT, {
           detail:  theme,
           bubbles: true,
           composed: true,

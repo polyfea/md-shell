@@ -1,8 +1,15 @@
-// vite.config.ts
+import path from 'node:path';
+
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
 import { viteStaticCopy } from 'vite-plugin-static-copy';
-import { resolve } from 'path';
+import { resolve } from 'node:path';
 import dts from 'vite-plugin-dts';
+import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+
+import { playwright } from '@vitest/browser-playwright';
+
+const dirname = typeof (globalThis as any).__dirname !== 'undefined' ? (globalThis as any).__dirname : path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [
@@ -50,11 +57,23 @@ export default defineConfig({
       ]
     })
   ],
+  optimizeDeps: {
+    include: [
+      '@material/web/menu/menu.js',
+      '@material/web/menu/menu-item',
+      '@material/web/icon/icon',
+      '@material/web/iconbutton/icon-button',
+      '@material/web/ripple/ripple',
+      '@material/web/elevation/elevation',
+      'storybook/internal/preview-api',
+      'lit-html/directives/style-map.js'
+    ]
+  },
   build: {
     lib: {
       entry: {
-        index: resolve(__dirname, 'src/index.ts'),
-        elements: resolve(__dirname, 'src/elements.ts') 
+        index: resolve(dirname, 'src/index.ts'),
+        elements: resolve(dirname, 'src/elements.ts') 
       },
       name: 'PolyfeaMdShell',
       fileName: (format) => format === 'es' ? 'index.js' : `index.${format}.js`,
@@ -83,5 +102,43 @@ export default defineConfig({
         }
       ]
     }
-  }
+  },
+  test: {
+    projects: [
+      {
+        extends: true,
+        plugins: [
+          // The plugin will run tests for the stories defined in your Storybook config
+          // See options at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon#storybooktest
+          storybookTest({ configDir: path.join(dirname, '.storybook') }),
+        ],
+        test: {
+          name: 'storybook',
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright({}),
+            instances: [{ browser: 'chromium' }],
+          },
+          setupFiles: ['.storybook/vitest.setup.ts'],
+        },
+      },
+    ],
+    reporters: ['junit', 'verbose'],
+    coverage: {
+      provider: 'istanbul',
+      reporter: ['text', 'html', 'cobertura'],
+      exclude: ['**/node_modules/**', '**/dist/**', '**/.{git,temp}/**', '**/{vite,vitest}/**', '**/tests/', '.storybook/', 'coverage/', '**/mock*'],
+      watermarks: {
+        statements: [90, 100],
+      },
+      thresholds: {
+        lines: 100,
+        statements: 100,
+      },
+    },
+    outputFile: {
+      junit: './coverage/junit-report.xml',
+    },
+  },
 });

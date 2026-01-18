@@ -1,16 +1,11 @@
 import { msg, updateWhenLocaleChanges } from '@lit/localize';
 import { LitElement, html, css, nothing } from 'lit';
-import { customElement, property, query } from 'lit/decorators.js';
+import {  property, query } from 'lit/decorators.js';
+import { customElementSafe, importMdIconButtonSafely, importMdIconSafely, importMdMenuSafely } from './custom-element-safe';
 
-if (!globalThis.customElements.get('md-icon-button')) {
-  import('@material/web/iconbutton/icon-button.js');
-}
-if (!globalThis.customElements.get('md-icon')) {
-  import('@material/web/icon/icon.js');
-}
-if (!globalThis.customElements.get('md-menu')) {
-  import('@material/web/menu/menu.js');
-}
+importMdIconButtonSafely();
+importMdIconSafely();
+importMdMenuSafely();
 
 /** An element for top application bars following Material Design guidelines.
  * 
@@ -22,7 +17,7 @@ if (!globalThis.customElements.get('md-menu')) {
  * @fires drawer-opened - Emitted when clicking on the drawer leading icon button. Refers to parent to handle side navigation.
  * @fires back - Emitted when clicking on the back leading icon button.
  */
-@customElement('polyfea-md-topbar')
+@customElementSafe('polyfea-md-topbar')
 export class PolyfeaMdTopbar extends LitElement {
 
   /** Text of the headline */

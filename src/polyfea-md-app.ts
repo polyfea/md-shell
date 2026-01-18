@@ -1,21 +1,14 @@
 import { LitElement, html, unsafeCSS } from 'lit';
-import { customElement, property, state } from 'lit/decorators.js';
+import { property, state } from 'lit/decorators.js';
 
 import styles from './polyfea-md-app.css?inline';
 import { loc } from './localization';
 import { updateWhenLocaleChanges } from '@lit/localize';
+import { customElementSafe, importMdElevationSafely, importMdIconSafely, importMdRippleSafely } from './custom-element-safe';
 
-
-
-if (!globalThis.customElements.get('md-elevation')) {
-  import('@material/web/elevation/elevation.js');
-}
-if (!globalThis.customElements.get('md-ripple')) {
-  import('@material/web/ripple/ripple.js');
-}
-if (!globalThis.customElements.get('md-icon')) {
-  import('@material/web/icon/icon.js');
-}
+importMdElevationSafely();
+importMdRippleSafely();
+importMdIconSafely();
 
 /**
  * An application tile or icon that may be used in a launcher page or navigation area.
@@ -28,7 +21,7 @@ if (!globalThis.customElements.get('md-icon')) {
  * @cssprop --app-card-tile-img-background-color - Specifies the background color of the tile image. Default value is `var(--md-sys-color-secondary-container, olive)`.
  * @cssprop --app-card-tile-img-fit - Specifies the `object-fit` style for the tile image. Default value is `cover`.
  */
-@customElement('polyfea-md-app')
+@customElementSafe('polyfea-md-app')
 export class PolyfeaMdApp extends LitElement {
   static styles = unsafeCSS(styles);
 

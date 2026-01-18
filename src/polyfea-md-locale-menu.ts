@@ -1,56 +1,48 @@
-import { LitElement, html, css } from 'lit';
-import { customElement, property, query, state } from 'lit/decorators.js';
-import { map } from 'lit/directives/map.js';
+import { LitElement, html, css } from "lit";
+import { property, query, state } from "lit/decorators.js";
+import { map } from "lit/directives/map.js";
 
-// Import Material Design komponentov
-import '@material/web/iconbutton/icon-button.js';
-import '@material/web/icon/icon.js';
-import '@material/web/menu/menu.js';
-import '@material/web/menu/menu-item.js';
-import { MdMenu } from '@material/web/menu/menu.js';
-import { PolyfeaMdThemeControl, type Theme } from './polyfea-md-theme-control';
-import { LocalizationRegistry } from './localization';
-import { str } from '@lit/localize/internal/str-tag';
-import { msg } from '@lit/localize';
+import { MdMenu } from "@material/web/menu/menu.js";
+import { getLocale, setLocale } from "./localization";
+import { str } from "@lit/localize/internal/str-tag";
+import { msg, updateWhenLocaleChanges } from "@lit/localize";
+import { customElementSafe, importMdIconButtonSafely, importMdIconSafely, importMdMenuItemSafely, importMdMenuSafely } from "./custom-element-safe";
 
-/**
- * Mapovanie ISO kódov jazykov (lit-localize) na ISO kódy krajín (flag-icons)
- */
+importMdMenuSafely();
+importMdMenuItemSafely();
+importMdIconSafely();
+importMdIconButtonSafely();
+
 const LOCALE_TO_COUNTRY: Record<string, string> = {
-  'cs': 'cz',
-  'en': 'gb',
-  'en-US': 'us',
-  'en-GB': 'gb',
-  'sk': 'sk',
-  'de': 'de',
-  'hu': 'hu',
-  'pl': 'pl',
-  'uk': 'ua',
-  'es': 'es',
+  cs: "cz",
+  en: "gb",
+  "en-US": "us",
+  "en-GB": "gb",
+  sk: "sk",
+  de: "de",
+  hu: "hu",
+  pl: "pl",
+  uk: "ua",
+  es: "es",
 };
 
-@customElement('polyfea-md-locale-menu')
+@customElementSafe("polyfea-md-locale-menu")
 export class PolyfeaMdLocaleMenu extends LitElement {
   /**
    * list of supported locales
    */
-  @property({ type: Array }) locales: string[] = ['en'];
-
-  /**
-   * current selected locale
-   */
-  @property({ type: String, attribute: 'current-locale', reflect: true }) currentLocale = 'en';
+  @property({ type: Array }) locales: string[] = ["en"];
 
   /**
    * Path to the flag-icons CSS file
    */
-  @property({ type: String, attribute: 'flag-icons-path' })
-  flagIconsPath = './assets/flag-icons/css/flag-icons.min.css';
+  @property({ type: String, attribute: "flag-icons-path" })
+  flagIconsPath = "./assets/flag-icons/css/flag-icons.min.css";
 
   /**
    * Reference to the menu element for programmatic opening/closing
    */
-  @query('md-menu') private menu!: MdMenu;
+  @query("md-menu") private menu!: MdMenu;
   @state() private menuOpen = false;
 
   static styles = css`
@@ -78,20 +70,16 @@ export class PolyfeaMdLocaleMenu extends LitElement {
     }
   `;
 
-  connectedCallback(): void {
-    super.connectedCallback();
-    const theme = PolyfeaMdThemeControl.loadTheme();
-    if (theme.locale) {
-      this.currentLocale = theme.locale;
-    } else {
-      let browserLocales = navigator.languages || [navigator.language];
-      this.currentLocale = LocalizationRegistry.resolveSupportedLocale(browserLocales, new Set(this.locales));
-    }
+  constructor() {
+    super();
+    updateWhenLocaleChanges(this);
   }
 
   render() {
-    const countryCode = this.#getCountryCode(this.currentLocale);
-    const langName = this.#getDisplayNames(this.currentLocale);
+    const currentLocale = getLocale() || (navigator.languages || [navigator.language || "en"])[0];
+    const countryCode = this.#getCountryCode(currentLocale);
+    const langName = this.#getDisplayNames(currentLocale);
+
     return html`
       <link rel="stylesheet" href="${this.flagIconsPath}" />
       <md-menu-item
@@ -99,9 +87,12 @@ export class PolyfeaMdLocaleMenu extends LitElement {
         id="locale-anchor"
         keep-open
         aria-haspopup="menu"
-        aria-expanded="${this.menuOpen ? 'true' : 'false'}"
+        aria-expanded="${this.menuOpen ? "true" : "false"}"
         aria-controls="locale-menu"
-        aria-label=${msg(str`Change language, currently ${langName}`, { id: 'polyfea.change-language-label' })}
+        aria-label=${msg(str`Change language, currently ${langName}`, {
+          id: "polyfea.change-language-label",
+        })}
+        locale=${currentLocale}
       >
         <div slot="headline" class="menu-content">
           <span class="flag-icon fi fi-${countryCode}"></span>
@@ -109,17 +100,25 @@ export class PolyfeaMdLocaleMenu extends LitElement {
         </div>
         <md-icon slot="end">arrow_right</md-icon>
       </md-menu-item>
-      <md-menu id="locale-menu" anchor="locale-anchor" .open="${this.menuOpen}"> ${map(this.locales, locale => this.#renderMenuItem(locale))} </md-menu>
+      <md-menu id="locale-menu" anchor="locale-anchor" .open="${this.menuOpen}">
+        ${map(this.locales, (locale) => this.#renderMenuItem(locale, currentLocale))}
+      </md-menu>
     `;
   }
 
-  #renderMenuItem(locale: string) {
-    const isSelected = this.currentLocale === locale;
+  #renderMenuItem(locale: string, currentLocale: string) {
+    const isSelected = currentLocale === locale;
     const countryCode = this.#getCountryCode(locale);
     const langName = this.#getDisplayNames(locale);
 
     return html`
-      <md-menu-item @click="${() => this.#handleLocaleSelect(locale)}" ?selected="${isSelected}" role="menuitemradio" aria-checked=${isSelected ? 'true' : 'false'}>
+      <md-menu-item
+        @click="${() => this.#handleLocaleSelect(locale)}"
+        ?selected="${isSelected}"
+        role="menuitemradio"
+        aria-checked=${isSelected ? "true" : "false"}
+        locale="${locale}"
+      >
         <div slot="headline" class="menu-content">
           <span class="flag-icon fi fi-${countryCode}"></span>
           <span class="lang-name">${langName}</span>
@@ -130,25 +129,14 @@ export class PolyfeaMdLocaleMenu extends LitElement {
 
   #handleLocaleSelect(locale: string) {
     this.menuOpen = false;
-    if (this.currentLocale === locale) return;
-    this.currentLocale = locale;
-
-    const theme = { ...PolyfeaMdThemeControl.loadTheme(), locale };
-    localStorage.setItem('theme', JSON.stringify(theme));
-
-    this.dispatchEvent(
-      new CustomEvent<Theme>('theme-changed', {
-        detail: theme,
-        bubbles: true,
-        composed: true,
-      }),
-    );
+    if (!locale || locale === getLocale()) return;
+    setLocale(locale);
   }
 
   #getDisplayNames(locale: string): string {
     let name: string | undefined;
     try {
-      name = new Intl.DisplayNames([locale], { type: 'language' }).of(locale);
+      name = new Intl.DisplayNames([locale], { type: "language" }).of(locale);
       name = name ? name.charAt(0).toUpperCase() + name.slice(1) : locale;
     } catch (e) {}
     return name || locale;
@@ -158,15 +146,15 @@ export class PolyfeaMdLocaleMenu extends LitElement {
     if (LOCALE_TO_COUNTRY[locale]) {
       return LOCALE_TO_COUNTRY[locale];
     }
-    if (locale.includes('-')) {
-      return locale.split('-')[1].toLowerCase();
+    if (locale.includes("-")) {
+      return locale.split("-")[1].toLowerCase();
     }
-    return 'un';
+    return "un";
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'polyfea-md-locale-menu': PolyfeaMdLocaleMenu;
+    "polyfea-md-locale-menu": PolyfeaMdLocaleMenu;
   }
 }

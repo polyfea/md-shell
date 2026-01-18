@@ -12,11 +12,8 @@ export * from './resize-controller';
 export {
     registerLocaleModule,
     setLocale,
+    getLocale,
     loc,
-    type LoadLocaleEvent,
-    type LocalesLoaderRegistry,
     type LoaderFn,
     type LocaleTemplates,
-
-
 } from './localization';
