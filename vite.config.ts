@@ -50,6 +50,17 @@ export default defineConfig({
       ]
     })
   ],
+  optimizeDeps: {
+    include: [
+      '@material/web/menu/menu.js',
+      '@material/web/menu/menu-item',
+      '@material/web/icon/icon',
+      '@material/web/iconbutton/icon-button',
+      '@material/web/ripple/ripple',
+      '@material/web/elevation/elevation',
+      'storybook/internal/preview-api'
+    ]
+  },
   build: {
     lib: {
       entry: {
