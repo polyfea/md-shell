@@ -595,7 +595,7 @@ export const Drawer: Story = {
   },
   args: {
     drawerDisabled: false,
-    vwWidth: 72,
+    vwWidth: 60,
   },
 
   play: async ({ canvasElement, step, args }) => {
@@ -658,10 +658,10 @@ export const Drawer: Story = {
       await expect(drawer).toBeInTheDocument();
       drawer.dispatchEvent(new MouseEvent("click", { bubbles: true, composed: true }));
 
-      // flaky check - works in local storybook/test but not in CI
-      // await waitFor(async () => {
-      //   await expect(drawer).not.toHaveAttribute("open");
-      // }, { timeout: 3000 });
+      
+      await waitFor(async () => {
+        await expect(drawer).not.toHaveAttribute("open");
+      }, { timeout: 3000 });
     });
     await step("Re-Open drawer", async () => {
       shell.dispatchEvent(new CustomEvent("drawer-opened"));
