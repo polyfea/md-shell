@@ -66,7 +66,7 @@ export default defineConfig({
       '@material/web/ripple/ripple',
       '@material/web/elevation/elevation',
       'storybook/internal/preview-api',
-      'lit-html/directives/style-map'
+      'lit-html/directives/style-map.js'
     ]
   },
   build: {

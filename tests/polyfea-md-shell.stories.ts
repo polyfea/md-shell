@@ -352,6 +352,30 @@ export const Responsive: Story = {
       },
     },
   },
+  render: (args) => {
+    return html`
+     <div class="viewport-wrapper" style="${styleMap({ width: '90rem', height: '100%' })}">
+      <polyfea-md-shell
+          application-headline=${args.applicationHeadline}
+          ?topbar-more-disabled=${args.topbarMoreDisabled}
+          ?drawer-disabled=${args.drawerDisabled}
+          ?drawer-close-disabled=${args.drawerCloseDisabled}
+          ?rail-disabled=${args.railDisabled}
+          ?navigation-disabled=${args.navigationDisabled}
+          ?theme-menu=${args.themeMenu}
+          ?locale-menu=${args.localeMenu}
+          topbar-variant=${args.topbarVariant}
+          small-breakpoint-rem=${args.smallBreakpointRem}
+          medium-breakpoint-rem=${args.mediumBreakpointRem}
+          .locales=${args.locales}
+          locales-path=${args.localesPath}
+          theme-primary-color=${args.themePrimaryColor || nothing}
+          theme-secondary-color=${args.themeSecondaryColor || nothing}
+        >
+        <div style="padding: 20px;">
+      </div>
+      `;
+  },
   play: async ({ canvasElement, step, args }) => {
     const canvas = withinShadow(canvasElement);
     const viewport = canvasElement.querySelector(".viewport-wrapper") as HTMLElement;
