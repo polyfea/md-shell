@@ -65,7 +65,8 @@ export default defineConfig({
       '@material/web/iconbutton/icon-button',
       '@material/web/ripple/ripple',
       '@material/web/elevation/elevation',
-      'storybook/internal/preview-api'
+      'storybook/internal/preview-api',
+      'lit-html/directives/style-map'
     ]
   },
   build: {
