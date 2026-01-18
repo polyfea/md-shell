@@ -41,7 +41,7 @@ const config: StorybookConfig = {
   ],
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
-      base: (configType === 'PRODUCTION' ? '/md-shell/' : '/'),
+      base: (configType === 'PRODUCTION'  && (globalThis as any).process?.env?.NODE_ENV !== 'test'? '/md-shell/' : '/'),
     });
   },
 };

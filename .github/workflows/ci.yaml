@@ -28,6 +28,7 @@ jobs:
 
       - name: Deploy storybook 🚀
         uses: JamesIves/github-pages-deploy-action@v4
+        if: github.event_name == 'release'
         with:
           folder: storybook-static 
           branch: gh-pages
