@@ -1,9 +1,7 @@
 import { LitElement, css, html } from 'lit';
-import { customElement } from 'lit/decorators.js';
+import { customElementSafe, importMdElevationSafely } from './custom-element-safe';
 
-if (!globalThis.customElements.get('md-elevation')) {
-  import('@material/web/elevation/elevation.js');
-}
+importMdElevationSafely();
 
 /**
  * A navigation bar component, typically used at the bottom of the screen on mobile devices.
@@ -11,7 +9,7 @@ if (!globalThis.customElements.get('md-elevation')) {
  * @slot - This slot is for the navigation items.
  *    * `polyfea-md-app`: Set its 'context' property to "navigation-content" to use it as a navigation item.
  */
-@customElement('polyfea-md-navigation-bar')
+@customElementSafe('polyfea-md-navigation-bar')
 export class PolyfeaMdNavigationBar extends LitElement {
   render() {
     return html`

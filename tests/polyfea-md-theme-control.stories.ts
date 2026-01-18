@@ -10,6 +10,8 @@ import { PolyfeaMdThemeControl } from '../src/polyfea-md-theme-control';
 type ThemeMode = 'light' | 'dark';
 type Theme = { name: ThemeMode; textSize: number };
 
+const THEME_STORAGE_KEY = (PolyfeaMdThemeControl as any)._THEME_STORAGE_KEY;
+
 interface PolyfeaMdThemeControlProps {
   variant: 'button' | 'menu-item' | 'preset';
   control: 'theme-toggle' | 'text-increase' | 'text-decrease' | 'reset-font';
@@ -26,7 +28,7 @@ const meta = {
       variant=${args.variant}
       control=${args.control}
       default-text-size=${args.defaultTextSize}
-      @theme-changed=${args.onThemeChanged}
+      @polyfea-theme-changed=${args.onThemeChanged}
     ></polyfea-md-theme-control>
   `,
   argTypes: {
@@ -38,7 +40,7 @@ const meta = {
       control: { type: 'select' },
       options: ['theme-toggle', 'text-increase', 'text-decrease', 'reset-font'],
     },
-    onThemeChanged: { action: 'theme-changed' },
+    onThemeChanged: { action: 'polyfea-theme-changed' },
   },
   args: {
     variant: 'button',
@@ -71,7 +73,7 @@ export const ThemeToggle: Story = {
     const shadow = withinShadow(control as HTMLElement);
 
     // Ensure we start from a clean state
-    localStorage.removeItem('theme');
+    localStorage.removeItem(THEME_STORAGE_KEY);
     const currentTheme = (control as any)._theme;
 
     await step('Click toggle button', async () => {
@@ -80,11 +82,11 @@ export const ThemeToggle: Story = {
       await waitFor(async () => await expect(args.onThemeChanged).toHaveBeenCalled());
       const call = (args.onThemeChanged as any).mock.calls[0][0];
       await expect(call.detail.isDark).not.toBe(currentTheme.isDark);
-      const theme = JSON.parse(localStorage.getItem('theme') || '{}');
+      const theme = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '{}');
       await expect(theme).toHaveProperty('isDark', call.detail.isDark);
       await expect(theme).toHaveProperty('scale', call.detail.scale);
       // Clean up
-      localStorage.removeItem('theme');
+      localStorage.removeItem(THEME_STORAGE_KEY);
     });
   },
 };
@@ -106,7 +108,7 @@ export const TextIncrease: Story = {
     const shadow = withinShadow(control as HTMLElement);
 
     // Ensure we start from a clean state
-    localStorage.removeItem('theme');
+    localStorage.removeItem(THEME_STORAGE_KEY);
     const currentTheme = (control as any)._theme;
 
     await step('Click toggle button', async () => {
@@ -115,11 +117,11 @@ export const TextIncrease: Story = {
       await waitFor(async () => await expect(args.onThemeChanged).toHaveBeenCalled());
       const call = (args.onThemeChanged as any).mock.calls[0][0];
       await expect(call.detail.scale).toBeGreaterThan(currentTheme.scale);
-      const theme = JSON.parse(localStorage.getItem('theme') || '{}');
+      const theme = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '{}');
       await expect(theme).toHaveProperty('isDark', call.detail.isDark);
       await expect(theme).toHaveProperty('scale', call.detail.scale);
       // Clean up
-      localStorage.removeItem('theme');
+      localStorage.removeItem(THEME_STORAGE_KEY);
     });
   },
 };
@@ -140,7 +142,7 @@ export const TextDecrease: Story = {
     const shadow = withinShadow(control as HTMLElement);
 
     // Ensure we start from a clean state
-    localStorage.removeItem('theme');
+    localStorage.removeItem(THEME_STORAGE_KEY);
     const currentTheme = (control as any)._theme;
 
     await step('Click toggle button', async () => {
@@ -149,11 +151,11 @@ export const TextDecrease: Story = {
       await waitFor(async () => await expect(args.onThemeChanged).toHaveBeenCalled());
       const call = (args.onThemeChanged as any).mock.calls[0][0];
       await expect(call.detail.scale).toBeLessThan(currentTheme.scale);
-      const theme = JSON.parse(localStorage.getItem('theme') || '{}');
+      const theme = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '{}');
       await expect(theme).toHaveProperty('isDark', call.detail.isDark);
       await expect(theme).toHaveProperty('scale', call.detail.scale);
       // Clean up
-      localStorage.removeItem('theme');
+      localStorage.removeItem(THEME_STORAGE_KEY);
     });
   },
 };
@@ -174,7 +176,7 @@ export const TextReset: Story = {
     const shadow = withinShadow(control as HTMLElement);
 
     // Ensure we start from a clean state
-    localStorage.removeItem('theme');
+    localStorage.removeItem(THEME_STORAGE_KEY);
     const currentTheme = (control as any)._theme;
     currentTheme.scale = 1.5; // Simulate increased size
 
@@ -185,11 +187,11 @@ export const TextReset: Story = {
       await waitFor(async () => await expect(args.onThemeChanged).toHaveBeenCalled());
       const call = (args.onThemeChanged as any).mock.calls[0][0];
       await expect(call.detail.scale).toBe( 1);
-      const theme = JSON.parse(localStorage.getItem('theme') || '{}');
+      const theme = JSON.parse(localStorage.getItem(THEME_STORAGE_KEY) || '{}');
       await expect(theme).toHaveProperty('isDark', call.detail.isDark);
       await expect(theme).toHaveProperty('scale', call.detail.scale);
       // Clean up
-      localStorage.removeItem('theme');
+      localStorage.removeItem(THEME_STORAGE_KEY);
     });
   },
 };
@@ -208,7 +210,7 @@ export const MenuItemVariant: Story = {
   },
   render: args => html`
     <div style="background: var(--md-sys-color-surface); width: 250px; padding: 10px; border: 1px solid var(--md-sys-color-outline);">
-      <polyfea-md-theme-control .variant=${args.variant} .control=${args.control} @theme-changed=${args.onThemeChanged}></polyfea-md-theme-control>
+      <polyfea-md-theme-control .variant=${args.variant} .control=${args.control} @polyfea-theme-changed=${args.onThemeChanged}></polyfea-md-theme-control>
     </div>
   `,
 };
@@ -231,20 +233,20 @@ export const TEST_ThemeToggleWithStoredPreset: Story = {
     const shadow = withinShadow(control as HTMLElement);
 
     // Ensure we start from a clean state
-    localStorage.removeItem('theme');
+    localStorage.removeItem(THEME_STORAGE_KEY);
     
     const currentTheme = (control as any)._theme;
 
     await step('load theme with Theme', async () => {
       const query = window.matchMedia('(prefers-color-scheme: dark)');
       const shallBeDark = query.matches;
-      localStorage.setItem('theme', JSON.stringify({ isDark: !shallBeDark, scale: 1.25, followSystemTheme: true }));
+      localStorage.setItem(THEME_STORAGE_KEY, JSON.stringify({ isDark: !shallBeDark, scale: 1.25, followSystemTheme: true }));
       const theme = PolyfeaMdThemeControl.loadTheme();
       await expect(theme.isDark).toBe(shallBeDark);
       await expect(theme.scale).toBe(1.25);
     });
     // Clean up
-    localStorage.removeItem('theme');    
+    localStorage.removeItem(THEME_STORAGE_KEY);    
   },
 };
 

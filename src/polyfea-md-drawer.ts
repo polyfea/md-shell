@@ -1,14 +1,10 @@
 import { msg } from '@lit/localize/init/install';
 import { LitElement, html, css, nothing } from 'lit';
-import { customElement, property } from 'lit/decorators.js';
+import { property } from 'lit/decorators.js';
+import { customElementSafe, importMdIconButtonSafely, importMdIconSafely } from './custom-element-safe';
 
-
-if (!globalThis.customElements.get('md-icon-button')) {
-  import('@material/web/iconbutton/icon-button.js');
-}
-if (!globalThis.customElements.get('md-icon')) {
-  import('@material/web/icon/icon.js');
-}
+importMdIconButtonSafely();
+importMdIconSafely();
 
 
 /**
@@ -22,7 +18,7 @@ if (!globalThis.customElements.get('md-icon')) {
  * 
  * @fires drawer-closed - Rised when the close button is clicked indicating the user want to close the drawer.
  */
-@customElement('polyfea-md-drawer')
+@customElementSafe('polyfea-md-drawer')
 export class PolyfeaMdDrawer extends LitElement {
   
 

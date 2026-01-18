@@ -1,13 +1,14 @@
 import { css, html, LitElement } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { property } from "lit/decorators.js";
 import { loc } from "./localization";
+import { customElementSafe } from "./custom-element-safe";
 
 /** 
  * A label component for use in Material Design drawers.
  * 
  * @slot - additional content of the label, or the headline if the `headline` property is not used 
  **/
-@customElement('polyfea-md-drawer-label')
+@customElementSafe('polyfea-md-drawer-label')
 export class PolyfeaMdDrawerLabel extends LitElement {
     static styles = css`
       :host {

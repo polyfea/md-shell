@@ -9,6 +9,14 @@ import "../src/localization";
 PolyfeaContext.define();
 setCustomElementsManifest(customElements);
 
+const unsafeCustomElements = window.customElements.define;
+
+window.customElements.define = (name: string, constructor: CustomElementConstructor, options?: ElementDefinitionOptions) => {
+  if (!window.customElements.get(name)) {
+    unsafeCustomElements.call(window.customElements, name, constructor, options);
+  }
+};
+
 const preview: Preview = {
   parameters: {
     controls: {
