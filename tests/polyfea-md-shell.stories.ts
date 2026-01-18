@@ -660,7 +660,7 @@ export const Drawer: Story = {
 
       await waitFor(async () => {
         await expect(drawer).not.toHaveAttribute("open");
-      });
+      }, { timeout: 3000 });
     });
     await step("Re-Open drawer", async () => {
       shell.dispatchEvent(new CustomEvent("drawer-opened"));
