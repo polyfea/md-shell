@@ -30,7 +30,6 @@ interface PolyfeaMdShellProps {
   themeMenu: boolean;
   localeMenu: boolean;
   topbarVariant: "centered" | "small" | "medium" | "large";
-  vwWidth?: number;
   smallBreakpointRem?: number;
   mediumBreakpointRem?: number;
   locales?: string[];
@@ -64,12 +63,6 @@ const meta: Meta<PolyfeaMdShellProps> = {
     navigationDisabled: { control: "boolean" },
     themeMenu: { control: "boolean" },
     localeMenu: { control: "boolean" },
-    vwWidth: {
-      control: "number",
-      table: {
-        disable: true,
-      },
-    },
     smallBreakpointRem: {
       control: "number",
     },
@@ -195,17 +188,12 @@ const meta: Meta<PolyfeaMdShellProps> = {
       bottom: "5px",
       border: "1px solid #ccc",
     };
-    if (!args.vwWidth) {
-      vwStyle.right = "5px";
-      vwStyle.width = "auto";
-    } else {
-      vwStyle.right = "auto";
-      vwStyle.width = args.vwWidth + "rem";
-    }
+    
 
     return html`
-      <div style=${styleMap(vwStyle)} class="viewport-wrapper">
+      
         <polyfea-md-shell
+          absolute-position
           application-headline=${args.applicationHeadline}
           ?topbar-more-disabled=${args.topbarMoreDisabled}
           ?drawer-disabled=${args.drawerDisabled}
@@ -245,7 +233,7 @@ const meta: Meta<PolyfeaMdShellProps> = {
             mode="rail"
           ></polyfea-md-app>
         </polyfea-md-shell>
-      </div>
+
     `;
   },
 };
@@ -278,6 +266,9 @@ export const Default: Story = {
 };
 
 export const MediumSize: Story = {
+  globals: {
+    viewport: { value: 'medium', isRotated: false },
+  },
   parameters: {
     docs: {
       description: {
@@ -286,9 +277,7 @@ export const MediumSize: Story = {
       },
     },
   },
-  args: {
-    vwWidth: 60,
-  },
+  
   play: async ({ canvasElement, args }) => {
     const canvas = withinShadow(canvasElement);
     const shell = canvasElement.querySelector("polyfea-md-shell") as PolyfeaMdShell;
@@ -304,6 +293,9 @@ export const MediumSize: Story = {
 };
 
 export const SmallSize: Story = {
+  globals: {
+    viewport: { value: 'small', isRotated: false },
+  },
   parameters: {
     docs: {
       description: {
@@ -311,9 +303,6 @@ export const SmallSize: Story = {
           "Shows how the shell renders in a small-sized viewport (e.g., mobile). Elements like the rail are hidden and bottom navigation bar is shown.",
       },
     },
-  },
-  args: {
-    vwWidth: 38,
   },
   play: async ({ canvasElement, args }) => {
     const canvas = withinShadow(canvasElement);
@@ -330,6 +319,9 @@ export const SmallSize: Story = {
 };
 
 export const LargeSize: Story = {
+  globals: {
+    viewport: { value: 'large', isRotated: false },
+  },
   parameters: {
     docs: {
       description: {
@@ -337,9 +329,6 @@ export const LargeSize: Story = {
           "Shows how the shell renders in a large-sized viewport (e.g., desktop). Typically displays a persistent rail or drawer.",
       },
     },
-  },
-  args: {
-    vwWidth: 100,
   },
   play: async ({ canvasElement, args }) => {
     const canvas = withinShadow(canvasElement);
@@ -362,9 +351,6 @@ export const Responsive: Story = {
         story: "Size mode is responsive to viewport resizing. ",
       },
     },
-  },
-  args: {
-    vwWidth: 100,
   },
   play: async ({ canvasElement, step, args }) => {
     const canvas = withinShadow(canvasElement);
@@ -585,6 +571,9 @@ export const Theming: Story = {
 };
 
 export const Drawer: Story = {
+  globals: {
+    viewport: { value: 'medium', isRotated: false },
+  },
   parameters: {
     docs: {
       description: {
@@ -595,7 +584,6 @@ export const Drawer: Story = {
   },
   args: {
     drawerDisabled: false,
-    vwWidth: 60,
   },
 
   play: async ({ canvasElement, step, args }) => {
@@ -676,6 +664,9 @@ export const Drawer: Story = {
 };
 
 export const ScrollableContent: Story = {
+  globals: {
+    viewport: { value: 'small', isRotated: false },
+  },
   parameters: {
     docs: {
       description: {
@@ -684,9 +675,7 @@ export const ScrollableContent: Story = {
       },
     },
   },
-  args: {
-    vwWidth: 30,
-  },
+  
   play: async ({ canvasElement, step, args }) => {
     const canvas = withinShadow(canvasElement);
     const shell = canvasElement.querySelector("polyfea-md-shell") as PolyfeaMdShell;

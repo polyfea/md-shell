@@ -122,6 +122,9 @@ export class PolyfeaMdShell extends LitElement {
   /** If set to true, a locale selection menu will be displayed in more action menu*/
   @property({ type: Boolean, attribute: 'locale-menu' }) localeMenu: boolean = false;
 
+  /** If set to true, the shell will be positioned absolutely with top, right, bottom, and left set to 0. */
+  @property({ type: Boolean, attribute: 'absolute-position' }) absolutePosition: boolean = false;
+
   @state() private _drawerOpen: boolean = true;
   @state() private _scrolled: boolean = false;
 

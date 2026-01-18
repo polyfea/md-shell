@@ -22,7 +22,6 @@ jobs:
         run: npm run coverage.ci
       - run: npm run build 
         name: build package 🔧
-
       - name: build storybook 🔧
         run: npm run build:storybook
 
