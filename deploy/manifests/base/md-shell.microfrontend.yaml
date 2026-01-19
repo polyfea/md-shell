@@ -4,7 +4,8 @@ metadata:
   name: polyfea-md-shell
 spec:
   frontendClass: fea
-  service: http://polyfea-md-shell.default.svc.cluster.local
+  service:
+    name: polyfea-md-shell
   modulePath: elements.js
   staticPaths:
     # fonts

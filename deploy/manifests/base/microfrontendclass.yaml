@@ -31,5 +31,5 @@ spec:
   cspHeader: >-
     default-src 'self'; font-src 'self'; script-src 'strict-dynamic'
     'nonce-{NONCE_VALUE}'; worker-src 'self'; manifest-src 'self'; style-src
-    'self' 'strict-dynamic' 'nonce-{NONCE_VALUE}'; style-src-attr 'self'
-    'unsafe-inline'; img-src *;
+    'self' 'unsafe-inline'; style-src-attr 'self'
+    'unsafe-inline'; img-src *; connect-src *;
