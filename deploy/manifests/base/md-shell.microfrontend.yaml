@@ -13,6 +13,7 @@ spec:
       path: assets/fonts.css
   importMap:
     imports:
+      tslib: /imports/tslib/tslib.es6.mjs
       lit: /imports/lit/index.js
       lit/: /imports/lit/
       lit-html: /imports/lit-html/lit-html.js
@@ -22,8 +23,17 @@ spec:
       "@lit/reactive-element": /imports/@lit/reactive-element/reactive-element.js
       "@lit/reactive-element/": /imports/@lit/reactive-element/
       "@lit/localize": /imports/@lit/localize/lit-localize.js
+      "@lit/localize/init/install": /imports/@lit/localize/init/install.js
+      "@lit/localize/internal/runtime-msg": /imports/@lit/localize/internal/runtime-msg.js
+      "@lit/localize/internal/str-tag": /imports/@lit/localize/internal/str-tag.js
       "@lit/localize/": /imports/@lit/localize/
       "@lit/context": /imports/@lit/context/context.js
       "@lit/context/": /imports/@lit/context/
       "@material/web": /imports/@material/web/common.js #safe net - use specific entrypoint
+      "@material/web/menu/menu": /imports/@material/web/menu/menu.js
+      "@material/web/menu/menu-item": /imports/@material/web/menu/menu-item.js
+      "@material/web/icon/icon": /imports/@material/web/icon/icon.js
+      "@material/web/iconbutton/icon-button": /imports/@material/web/iconbutton/icon-button.js
+      "@material/web/ripple/ripple": /imports/@material/web/ripple/ripple.js
+      "@material/web/elevation/elevation": /imports/@material/web/elevation/elevation.js
       "@material/web/": /imports/@material/web/
