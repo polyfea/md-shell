@@ -21,6 +21,7 @@ EXPOSE 7105
 
 COPY --from=fea-build /workspace/dist/ /spa/public/
 # include common libs for import maps
+COPY --from=fea-build /workspace/node_modules/tslib/ /spa/public/imports/tslib/
 COPY --from=fea-build /workspace/node_modules/@lit/context/ /spa/public/imports/@lit/context/
 COPY --from=fea-build /workspace/node_modules/@lit/localize/ /spa/public/imports/@lit/localize/
 COPY --from=fea-build /workspace/node_modules/@lit/reactive-element/ /spa/public/imports/@lit/reactive-element/

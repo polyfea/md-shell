@@ -21,7 +21,7 @@ spec:
       display: "standalone"
       icons:
         - src: "https://avatars.githubusercontent.com/u/154217229?s=400&u=ae64608e9686a2405680676a15800dc2b6df32bb&v=4"
-          sizes: "256x256"
+          sizes: "128x128"
           type: "image/png"
     cacheOptions:
       preCache:
@@ -31,5 +31,5 @@ spec:
   cspHeader: >-
     default-src 'self'; font-src 'self'; script-src 'strict-dynamic'
     'nonce-{NONCE_VALUE}'; worker-src 'self'; manifest-src 'self'; style-src
-    'self' 'strict-dynamic' 'nonce-{NONCE_VALUE}'; style-src-attr 'self'
-    'unsafe-inline'; img-src *;
+    'self' 'unsafe-inline'; style-src-attr 'self'
+    'unsafe-inline'; img-src *; connect-src *;
