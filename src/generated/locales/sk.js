@@ -9,7 +9,8 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     export const templates = {
-      'polyfea.decrease-text-size': `Zmenšiť veľkosť textu`,
+      'polyfea.close-drawer': `Zatvoriť bočný panel`,
+'polyfea.decrease-text-size': `Zmenšiť veľkosť textu`,
 'polyfea.change-language-label': str`Zmeniť jazyk, teraz ${0}`,
 'polyfea.increase-text-size': `Zväčšiť veľkosť textu`,
 'polyfea.more-actions': `Viac akcií`,

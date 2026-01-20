@@ -38,6 +38,10 @@
   <source>more actions</source>
   <target>weitere Aktionen</target>
 </trans-unit>
+<trans-unit id="polyfea.close-drawer">
+  <source>close drawer</source>
+  <target>Seitenleiste schließen</target>
+</trans-unit>
     </body>
   </file>
 </xliff>

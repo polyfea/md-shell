@@ -9,7 +9,8 @@
     /* eslint-disable @typescript-eslint/no-explicit-any */
 
     export const templates = {
-      'polyfea.decrease-text-size': `Disminuir tamaño del texto`,
+      'polyfea.close-drawer': `cerrar panel lateral`,
+'polyfea.decrease-text-size': `Disminuir tamaño del texto`,
 'polyfea.change-language-label': str`Cambiar idioma, actualmente ${0}`,
 'polyfea.increase-text-size': `Aumentar tamaño del texto`,
 'polyfea.more-actions': `más acciones`,

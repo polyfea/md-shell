@@ -350,7 +350,7 @@
               "description": "function that loads the locale module dynamically"
             }
           ],
-          "description": "Registers a locale module with its available locales and loader function. Assumes <polyfea-md-shell> or other\ncontroller of LocalesLoaderRegistry is already instantiated and listening to the event"
+          "description": "Registers a locale module with its available locales and loader function. Assumes <polyfea-md-shell> or other\r\ncontroller of LocalesLoaderRegistry is already instantiated and listening to the event"
         },
         {
           "kind": "function",
@@ -569,7 +569,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the name of the Material Symbol icon to be used.\nIt's only utilized if the `icon-src` property is not set.\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
+              "description": "This property specifies the name of the Material Symbol icon to be used.\r\nIt's only utilized if the `icon-src` property is not set.\r\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
               "attribute": "material-icon"
             },
             {
@@ -579,7 +579,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
+              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\r\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
               "attribute": "tile-img-disabled"
             },
             {
@@ -589,7 +589,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\r\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\r\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \r\nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
               "attribute": "href"
             },
             {
@@ -599,7 +599,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
+              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\r\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \r\nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
               "attribute": "is-active-prefix"
             },
             {
@@ -609,7 +609,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the context in which the element is rendered.\nIt's typically set by the `polyfea-context` element.\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
+              "description": "This property specifies the context in which the element is rendered.\r\nIt's typically set by the `polyfea-context` element.\r\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
               "attribute": "context",
               "reflects": true
             },
@@ -620,7 +620,7 @@
                 "text": "'tile' | 'drawer' | 'rail' | 'navigation' | null"
               },
               "default": "null",
-              "description": "The mode in which the app anchor is rendered. If not specified then\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\nwill be navigation mode). In all other cases, the default mode is `tile`.",
+              "description": "The mode in which the app anchor is rendered. If not specified then\r\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\r\nwill be navigation mode). In all other cases, the default mode is `tile`.",
               "attribute": "mode"
             },
             {
@@ -711,7 +711,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the name of the Material Symbol icon to be used.\nIt's only utilized if the `icon-src` property is not set.\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
+              "description": "This property specifies the name of the Material Symbol icon to be used.\r\nIt's only utilized if the `icon-src` property is not set.\r\nFor more details on Material Symbols, refer to the [Material Symbols documentation](https://fonts.google.com/icons).",
               "fieldName": "materialIcon"
             },
             {
@@ -720,7 +720,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
+              "description": "This property disables the image in the tile variant rendering. If the `tile-img-src` property is not specified, the colored content is used instead.\r\nWhen the tile image is disabled, only the `headline` and `supporting-text` properties are rendered.",
               "fieldName": "tileImgDisabled"
             },
             {
@@ -729,7 +729,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the URL to navigate to when the element is clicked.\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
+              "description": "This property specifies the URL to navigate to when the element is clicked.\r\nThe click handler uses either the Navigation API's `navigate()` method or the History API's `pushState()` method.\r\nFor more details, refer to the [Navigation API](https://developer.mozilla.org/en-US/docs/Web/API/Navigation/navigate) \r\nand [History API](https://developer.mozilla.org/en-US/docs/Web/API/History/pushState) documentation.",
               "fieldName": "href"
             },
             {
@@ -738,7 +738,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
+              "description": "This property specifies whether the element is rendered as active on all paths prefixed by href. By default, the element is only active\r\nwhen the href matches the current path. If set then active indicator is  considered only by  pathname and hash components \r\nof the `href`attribute and it is set to true if this is a prefix of the current path+hash.",
               "fieldName": "isActivePrefix"
             },
             {
@@ -747,7 +747,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "This property specifies the context in which the element is rendered.\nIt's typically set by the `polyfea-context` element.\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
+              "description": "This property specifies the context in which the element is rendered.\r\nIt's typically set by the `polyfea-context` element.\r\nFor more details, refer to the [`polyfea-context` documentation](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md).",
               "fieldName": "context"
             },
             {
@@ -756,7 +756,7 @@
                 "text": "'tile' | 'drawer' | 'rail' | 'navigation' | null"
               },
               "default": "null",
-              "description": "The mode in which the app anchor is rendered. If not specified then\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\nwill be navigation mode). In all other cases, the default mode is `tile`.",
+              "description": "The mode in which the app anchor is rendered. If not specified then\r\nthe mode is determined by the context name prefix (e.g. `drawer-content` will be drawer mode, and `navigation-icons`\r\nwill be navigation mode). In all other cases, the default mode is `tile`.",
               "fieldName": "mode"
             }
           ],
@@ -800,7 +800,7 @@
                 "text": "string"
               },
               "default": "'applications'",
-              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\nelement that will be used to render the applications web components.",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\r\nelement that will be used to render the applications web components.",
               "attribute": "applications-context"
             }
           ],
@@ -811,7 +811,7 @@
                 "text": "string"
               },
               "default": "'applications'",
-              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\nelement that will be used to render the applications web components.",
+              "description": "name of the [polyfe-context](https://github.com/polyfea/core/blob/main/src/components/polyfea-context/readme.md)\r\nelement that will be used to render the applications web components.",
               "fieldName": "applicationsContext"
             }
           ],
@@ -929,7 +929,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
+              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \r\nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
               "attribute": "close-disabled"
             }
           ],
@@ -949,7 +949,7 @@
                 "text": "boolean"
               },
               "default": "false",
-              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
+              "description": "By default, the drawer includes a close button. If this property is set to true, the close button will be hidden. \r\nThis can be useful when the drawer is used for navigation and a close button is unnecessary.",
               "fieldName": "closeDisabled"
             }
           ],
@@ -1165,7 +1165,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.\nIt provides slots to customize these areas and context areas for dynamic content injection using polyfea-context. Embedded is a style element with Material Design tokens for colors, typography, and shapes.",
+          "description": "A Material Design based application shell component that provides a structured layout with a top bar, navigation drawer, navigation rail, and main content area.\r\nIt provides slots to customize these areas and context areas for dynamic content injection using polyfea-context. Embedded is a style element with Material Design tokens for colors, typography, and shapes.",
           "name": "PolyfeaMdShell",
           "cssProperties": [
             {
@@ -1227,7 +1227,7 @@
                 "text": "string"
               },
               "default": "'Polyfea Shell'",
-              "description": "The name of the application displayed in the top bar. This is only shown\nif the `app-shell-title` context area is empty.",
+              "description": "The name of the application displayed in the top bar. This is only shown\r\nif the `app-shell-title` context area is empty.",
               "attribute": "application-headline"
             },
             {
@@ -1417,7 +1417,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "URL to locales base path from where to load extra localization files (e.g. '/locales'). Locales are expected to be in <locale>.js files.\nThese locales may overload built-in localizations that are otherwise registered in the context `locales-loaders`.",
+              "description": "URL to locales base path from where to load extra localization files (e.g. '/locales'). Locales are expected to be in <locale>.js files.\r\nThese locales may overload built-in localizations that are otherwise registered in the context `locales-loaders`.",
               "attribute": "locales-path"
             },
             {
@@ -1439,6 +1439,16 @@
               "default": "false",
               "description": "If set to true, a locale selection menu will be displayed in more action menu",
               "attribute": "locale-menu"
+            },
+            {
+              "kind": "field",
+              "name": "absolutePosition",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the shell will be positioned absolutely with top, right, bottom, and left set to 0.",
+              "attribute": "absolute-position"
             }
           ],
           "attributes": [
@@ -1448,7 +1458,7 @@
                 "text": "string"
               },
               "default": "'Polyfea Shell'",
-              "description": "The name of the application displayed in the top bar. This is only shown\nif the `app-shell-title` context area is empty.",
+              "description": "The name of the application displayed in the top bar. This is only shown\r\nif the `app-shell-title` context area is empty.",
               "fieldName": "applicationHeadline"
             },
             {
@@ -1619,7 +1629,7 @@
                 "text": "string"
               },
               "default": "''",
-              "description": "URL to locales base path from where to load extra localization files (e.g. '/locales'). Locales are expected to be in <locale>.js files.\nThese locales may overload built-in localizations that are otherwise registered in the context `locales-loaders`.",
+              "description": "URL to locales base path from where to load extra localization files (e.g. '/locales'). Locales are expected to be in <locale>.js files.\r\nThese locales may overload built-in localizations that are otherwise registered in the context `locales-loaders`.",
               "fieldName": "localesPath"
             },
             {
@@ -1639,6 +1649,15 @@
               "default": "false",
               "description": "If set to true, a locale selection menu will be displayed in more action menu",
               "fieldName": "localeMenu"
+            },
+            {
+              "name": "absolute-position",
+              "type": {
+                "text": "boolean"
+              },
+              "default": "false",
+              "description": "If set to true, the shell will be positioned absolutely with top, right, bottom, and left set to 0.",
+              "fieldName": "absolutePosition"
             }
           ],
           "superclass": {
@@ -1665,7 +1684,7 @@
       "declarations": [
         {
           "kind": "class",
-          "description": "A control component to toggle between light and dark themes or adjust font sizes.\nIt can be rendered as an icon button, a menu item, or a hidden preset loader.",
+          "description": "A control component to toggle between light and dark themes or adjust font sizes.\r\nIt can be rendered as an icon button, a menu item, or a hidden preset loader.",
           "name": "PolyfeaMdThemeControl",
           "members": [
             {
@@ -1675,7 +1694,7 @@
                 "text": "'button' | 'menu-item'"
               },
               "default": "'button'",
-              "description": "This property controls the display variant of the theme control. It can be used to render the control\nas an icon button or a menu item.\n\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage.\nInclude this in your document to ensure the theme is properly initialized.",
+              "description": "This property controls the display variant of the theme control. It can be used to render the control\r\nas an icon button or a menu item.\r\n\r\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage.\r\nInclude this in your document to ensure the theme is properly initialized.",
               "attribute": "variant"
             },
             {
@@ -1726,7 +1745,7 @@
                 "text": "'button' | 'menu-item'"
               },
               "default": "'button'",
-              "description": "This property controls the display variant of the theme control. It can be used to render the control\nas an icon button or a menu item.\n\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage.\nInclude this in your document to ensure the theme is properly initialized.",
+              "description": "This property controls the display variant of the theme control. It can be used to render the control\r\nas an icon button or a menu item.\r\n\r\nThe \"preset\" variant doesn't render anything but initializes the theme based on user preferences stored in local storage.\r\nInclude this in your document to ensure the theme is properly initialized.",
               "fieldName": "variant"
             },
             {
@@ -1801,7 +1820,7 @@
                 "text": "\"none\" | \"drawer\" | \"back\""
               },
               "default": "\"drawer\"",
-              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \nPossible values are:\n- `none` - No icon is shown.\n- `drawer` - A menu icon is shown that opens the drawer.\n- `back` - A back icon is shown that emits a `back` event.",
+              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \r\nPossible values are:\r\n- `none` - No icon is shown.\r\n- `drawer` - A menu icon is shown that opens the drawer.\r\n- `back` - A back icon is shown that emits a `back` event.",
               "attribute": "leading-icon"
             },
             {
@@ -1857,7 +1876,7 @@
                 "text": "\"none\" | \"drawer\" | \"back\""
               },
               "default": "\"drawer\"",
-              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \nPossible values are:\n- `none` - No icon is shown.\n- `drawer` - A menu icon is shown that opens the drawer.\n- `back` - A back icon is shown that emits a `back` event.",
+              "description": "Icon to show in the leading position of the top bar if the `leading` slot is left empty. \r\nPossible values are:\r\n- `none` - No icon is shown.\r\n- `drawer` - A menu icon is shown that opens the drawer.\r\n- `back` - A back icon is shown that emits a `back` event.",
               "fieldName": "leadingIcon"
             },
             {

@@ -4,7 +4,7 @@ import { map } from "lit/directives/map.js";
 
 import { MdMenu } from "@material/web/menu/menu.js";
 import { getLocale, setLocale } from "./localization";
-import { str } from "@lit/localize/internal/str-tag";
+import { str } from "@lit/localize/internal/str-tag.js";
 import { msg, updateWhenLocaleChanges } from "@lit/localize";
 import { customElementSafe, importMdIconButtonSafely, importMdIconSafely, importMdMenuItemSafely, importMdMenuSafely } from "./custom-element-safe";
 
