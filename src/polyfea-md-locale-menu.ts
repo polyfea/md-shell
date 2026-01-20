@@ -101,7 +101,7 @@ export class PolyfeaMdLocaleMenu extends LitElement {
         <md-icon slot="end">arrow_right</md-icon>
       </md-menu-item>
       <md-menu id="locale-menu" anchor="locale-anchor" .open="${this.menuOpen}">
-        ${map(this.locales, (locale) => this.#renderMenuItem(locale, currentLocale))}
+        ${map(this.locales || [], (locale) => this.#renderMenuItem(locale, currentLocale))}
       </md-menu>
     `;
   }
