@@ -9,8 +9,8 @@ import {
 } from "@lit/localize";
 import { targetLocales } from "./generated/locale-codes";
 import type { TemplateResult } from "lit-element/lit-element.js";
-import { _installMsgImplementation } from "@lit/localize/init/install";
-import { runtimeMsg } from "@lit/localize/internal/runtime-msg";
+import { _installMsgImplementation } from "@lit/localize/init/install.js";
+import { runtimeMsg } from "@lit/localize/internal/runtime-msg.js";
 
 export type LocaleTemplates = { templates: TemplateMap };
 export type LoaderFn = (locale: string) => Promise<LocaleTemplates>;

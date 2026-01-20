@@ -38,6 +38,10 @@
   <source>more actions</source>
   <target>další akce</target>
 </trans-unit>
+<trans-unit id="polyfea.close-drawer">
+  <source>close drawer</source>
+  <target>zavřít panel</target>
+</trans-unit>
     </body>
   </file>
 </xliff>

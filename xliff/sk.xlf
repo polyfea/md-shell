@@ -7,6 +7,11 @@
         </source>
         <target state="">Zmeniť jazyk, teraz <x id="0" equiv-text="${langName}"/></target>
   <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
+  <source>Change language, currently <x id="0" equiv-text="${langName}"/></source>
       </trans-unit>
       <trans-unit id="polyfea.switch-to-light-theme">
         <source>Switch to Light mode</source>
@@ -40,6 +45,10 @@
         <source>more actions</source>
         <target state="">Viac akcií</target>
       </trans-unit>
+<trans-unit id="polyfea.close-drawer">
+  <source>close drawer</source>
+  <target state="">Zatvoriť bočný panel</target>
+</trans-unit>
     </body>
   </file>
 </xliff>

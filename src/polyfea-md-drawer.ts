@@ -1,4 +1,4 @@
-import { msg } from '@lit/localize/init/install';
+import { msg } from '@lit/localize/init/install.js';
 import { LitElement, html, css, nothing } from 'lit';
 import { property } from 'lit/decorators.js';
 import { customElementSafe, importMdIconButtonSafely, importMdIconSafely } from './custom-element-safe';

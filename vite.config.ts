@@ -60,11 +60,11 @@ export default defineConfig({
   optimizeDeps: {
     include: [
       '@material/web/menu/menu.js',
-      '@material/web/menu/menu-item',
-      '@material/web/icon/icon',
-      '@material/web/iconbutton/icon-button',
-      '@material/web/ripple/ripple',
-      '@material/web/elevation/elevation',
+      '@material/web/menu/menu-item.js',
+      '@material/web/icon/icon.js',
+      '@material/web/iconbutton/icon-button.js',
+      '@material/web/ripple/ripple.js',
+      '@material/web/elevation/elevation.js',
       'storybook/internal/preview-api',
       'lit-html/directives/style-map.js'
     ]
