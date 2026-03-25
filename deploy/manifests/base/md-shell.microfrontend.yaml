@@ -12,7 +12,7 @@ spec:
     - kind: stylesheet
       path: assets/fonts.css
   importMap:
-    imports:
+    optional:
       tslib: /imports/tslib/tslib.es6.mjs
       lit: /imports/lit/index.js
       lit/: /imports/lit/
